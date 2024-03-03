@@ -127,18 +127,6 @@ const LoginButton = muiStyled(Button)({
   },
 });
 
-
-const Logo = styled.img`
-  width: 50px;
-  height: auto;
-  margin-right: 10px;
-`;
-
-const LogoDiv = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
 const LogoText = styled.h1`
   font-size: 2rem;
   color: white;

@@ -57,9 +57,9 @@ const dispatch = useDispatch();
 
   return (
     <NavContainer>
-      <LogoDiv>
-        <Logo src={LogoImg} alt="billsy" />
-      </LogoDiv>
+      <LogoText>
+        Billsy
+      </LogoText>
       <NavLinks>
         <NavLinkItem>
           <NavLink href="#">Link 1</NavLink>
@@ -88,6 +88,8 @@ export const NavContainer = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: sticky;
+  top: 0;
 `;
 
 const NavLinks = styled.ul`
@@ -127,7 +129,7 @@ const LoginButton = muiStyled(Button)({
 
 
 const Logo = styled.img`
-  width: 100px;
+  width: 50px;
   height: auto;
   margin-right: 10px;
 `;
@@ -141,7 +143,7 @@ const LogoText = styled.h1`
   font-size: 2rem;
   color: white;
   margin-left: 10px;
-  font-family: "Lato", sans-serif;
-  font-weight: 700;
+  font-family: "Madimi One", sans-serif;
+  font-weight: 400;
   font-style: normal;
 `;

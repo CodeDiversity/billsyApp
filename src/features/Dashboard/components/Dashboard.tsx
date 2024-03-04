@@ -2,14 +2,15 @@ import styled from "@emotion/styled";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { LeftNav } from "./LeftNav/LeftNav";
+import { LoggedInLayout } from "../../../common/Layouts/LoggedInLayout";
 
 type Props = {};
 
 export const Dashboard = (props: Props) => {
   return (
-    <>
-      <LeftNav />
-    </>
+    <LoggedInLayout>
+      Dashboard
+    </LoggedInLayout>
   );
 };
 

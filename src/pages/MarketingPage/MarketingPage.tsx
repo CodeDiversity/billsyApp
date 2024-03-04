@@ -6,6 +6,7 @@ import {
   heroText,
 } from "./constants/constants";
 import HeroImageSrc from "../../images/heroimage.webp";
+import { LoggedOutLayout } from "../../common/Layouts/LoggedOutLayout";
 
 
 export const MarketingPage = () => {
@@ -15,17 +16,19 @@ export const MarketingPage = () => {
     navigate('/register');
   }
   return (
-    <Container>
-      <HeroSection>
-        <LeftSideHero>
-          <HeroHeader>{heroHeaderText}</HeroHeader>
-          <P>{heroText}</P>
-          <P>{getStartedText}</P>
-          <SignUpButton onClick={heroClick}>Sign Up</SignUpButton>
-        </LeftSideHero>
-        <HeroImage src={HeroImageSrc} alt="reminders" />
-      </HeroSection>
-    </Container>
+    <LoggedOutLayout>
+      <Container>
+        <HeroSection>
+          <LeftSideHero>
+            <HeroHeader>{heroHeaderText}</HeroHeader>
+            <P>{heroText}</P>
+            <P>{getStartedText}</P>
+            <SignUpButton onClick={heroClick}>Sign Up</SignUpButton>
+          </LeftSideHero>
+          <HeroImage src={HeroImageSrc} alt="reminders" />
+        </HeroSection>
+      </Container>
+    </LoggedOutLayout>
   );
 };
 

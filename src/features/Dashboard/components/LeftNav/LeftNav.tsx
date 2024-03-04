@@ -4,28 +4,16 @@ import { NavLink } from "react-router-dom";
 
 export const LeftNav = () => {
   return (
-    <LeftNavContainer>
-      <NavList>
-        <ul>
-          <NavItem to="/">Overview</NavItem>
-          <NavItem to="/bills">Bills</NavItem>
-          <NavItem to="/settings">Settings</NavItem>
-          <NavItem to="/help">Help</NavItem>
-        </ul>
-      </NavList>
-    </LeftNavContainer>
+    <NavList>
+      <ul>
+        <NavItem to="/">Overview</NavItem>
+        <NavItem to="/bills">Bills</NavItem>
+        <NavItem to="/settings">Settings</NavItem>
+        <NavItem to="/help">Help</NavItem>
+      </ul>
+    </NavList>
   );
 };
-
-const LeftNavContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 20%;
-  height: 100%;
-  padding-top: 40px;
-`;
 
 const NavList = styled.ul`
   list-style-type: none;

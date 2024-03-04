@@ -9,7 +9,6 @@ export const Landing = () => {
   const isUserLoggedIn = useIsUserLoggedIn();
   return (
     <Container>
-      <NavBar />
       {
         isUserLoggedIn ? <Dashboard/> : <MarketingPage/>
       }

@@ -36,6 +36,7 @@ const RightSide = styled.div`
   flex-direction: column;
   width: 75.7%;
   padding: 20px;
+  margin-top: 10px;
 `;
 
 const MainContainer = styled.div`

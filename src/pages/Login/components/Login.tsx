@@ -2,9 +2,12 @@ import { useFormik } from "formik";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../features/Authentication/thunks/userThunks";
-import { AppDispatch } from "../../store";
-import { selectCurrentError, setError } from "../../features/Authentication/slices/userSlice";
+import { loginUser } from "../../../features/Authentication/thunks/userThunks";
+import { AppDispatch } from "../../../store";
+import {
+  selectCurrentError,
+  setError,
+} from "../../../features/Authentication/slices/userSlice";
 
 // Define TypeScript interfaces for form values and validation errors
 interface FormValues {
@@ -22,14 +25,14 @@ export const Login: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const error = useSelector(selectCurrentError);
-  console.log(error, 'redux error')
+  console.log(error, "redux error");
   const formik = useFormik<FormValues>({
     initialValues: {
       password: "",
       username: "",
     },
     onSubmit: async (values) => {
-     handleSubmit(values);
+      handleSubmit(values);
     },
     validate: (values) => {
       const errors: FormErrors = {};

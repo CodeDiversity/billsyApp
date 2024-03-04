@@ -14,7 +14,7 @@ export const MarketingPage = () => {
     <Container>
       <HeroSection>
         <LeftSideHero>
-          <H1>Billsy</H1>
+          <H1>Take Control Of Your Bills!</H1>
           <P>{heroText}</P>
           <P>{getStarted}</P>
           <SignUpButton onClick={heroClick}>Sign Up</SignUpButton>
@@ -66,6 +66,8 @@ const H1 = styled.h1 `
   font-size: 3rem;
   color: white;
   margin-bottom: 3rem;
+  text-align: center;
+  padding: 0 2rem;
 `
 
 const P = styled.p `

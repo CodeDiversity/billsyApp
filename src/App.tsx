@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { SignUp } from "./features/Authentication/components/SignUp";
 import { Landing } from "./pages/Landing/Landing";
-import { Login } from "./pages/Login/Login";
+import { Login } from "./pages/Login/components/Login";
 import { useEffect } from "react";
 import { rehydrateAuthState } from "./features/Authentication/thunks/userThunks";
 import { logoutUser } from "./features/Authentication/slices/userSlice";

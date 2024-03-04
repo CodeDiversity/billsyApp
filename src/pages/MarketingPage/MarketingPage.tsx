@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
 import { useNavigate } from 'react-router-dom';
-import { getStarted, heroText } from "./constants/constants";
+import {
+  getStartedText,
+  heroHeaderText,
+  heroText,
+} from "./constants/constants";
 import HeroImageSrc from "../../images/heroimage.webp";
 
 
@@ -14,9 +18,9 @@ export const MarketingPage = () => {
     <Container>
       <HeroSection>
         <LeftSideHero>
-          <H1>Take Control Of Your Bills!</H1>
+          <HeroHeader>{heroHeaderText}</HeroHeader>
           <P>{heroText}</P>
-          <P>{getStarted}</P>
+          <P>{getStartedText}</P>
           <SignUpButton onClick={heroClick}>Sign Up</SignUpButton>
         </LeftSideHero>
         <HeroImage src={HeroImageSrc} alt="reminders" />
@@ -62,7 +66,7 @@ const LeftSideHero = styled.div `
   height: 100%;
 `
 
-const H1 = styled.h1 `
+const HeroHeader = styled.h1 `
   font-size: 3rem;
   color: white;
   margin-bottom: 3rem;

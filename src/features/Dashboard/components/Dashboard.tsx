@@ -1,9 +1,31 @@
-import React from 'react'
+import styled from "@emotion/styled";
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { LeftNav } from "./LeftNav/LeftNav";
 
-type Props = {}
+type Props = {};
 
 export const Dashboard = (props: Props) => {
   return (
-    <div>Dashboard</div>
-  )
-}
+    <>
+      <LeftNav />
+    </>
+  );
+};
+
+
+const NavItem = styled(NavLink)`
+  display: block;
+  padding: 10px;
+  color: #333;
+  text-decoration: none;
+  width: 100%;
+
+  &.active {
+    background-color: #ddd; // Style for active state
+  }
+
+  &:hover {
+    background-color: #eee; // Style for hover state
+  }
+`;

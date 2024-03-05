@@ -25,7 +25,6 @@ export const Login: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const error = useSelector(selectCurrentError);
-  console.log(error, "redux error");
   const formik = useFormik<FormValues>({
     initialValues: {
       password: "",

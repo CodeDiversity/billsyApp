@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { SignUp } from "./features/Authentication/components/SignUp";
 import { Landing } from "./pages/Landing/Landing";
 import { Login } from "./pages/Login/components/Login";
@@ -7,9 +7,10 @@ import { rehydrateAuthState } from "./features/Authentication/thunks/userThunks"
 import { logoutUser } from "./features/Authentication/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "./store";
-import {Bills} from "./features/Bills/components/Bills";
+import { Bills } from "./features/Bills/components/Bills";
 import Settings from "./features/Settings/components/Settings";
 import Help from "./features/Help/components/Help";
+import { RequireAuth } from "./features/Authentication/hooks/protectedRoute";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -28,11 +29,13 @@ function App() {
       <Routes>
         <Route path="/register" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/bills" element={<Bills />} />
         <Route path="/" element={<Landing />} />
-        <Route path='/settings' element={<Settings/>}/>
-        <Route path="/help" element={<Help/>} />
 
+        <Route element={<RequireAuth />}>
+          <Route path="/bills" element={<Bills />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/help" element={<Help />} />
+        </Route>
       </Routes>
     </div>
   );

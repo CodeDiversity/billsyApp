@@ -25,6 +25,7 @@ const dispatch = useDispatch();
     dispatch(logoutUser());
     localStorage.removeItem("token");
     setIsLoggedIn(false);
+    navigate("/");
   };
 
   const isUserLoggedIn = () => {

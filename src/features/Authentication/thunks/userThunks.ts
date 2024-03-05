@@ -1,6 +1,6 @@
 // src/features/user/userThunks.ts
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { logoutUser, setError, setUser } from '../slices/userSlice';
+import { logoutUser, setError, setToken, setUser } from '../slices/userSlice';
 import { getErrorMessage } from '../../../common/errorMessages';
 import client from '../../../axiosConfig';
 import { LoginResponse, LoginValues, User } from '../types/userTypes';
@@ -21,14 +21,16 @@ interface ErrorResponse {
 export const loginUser = createAsyncThunk(
   'user/loginUser',
   async (values: LoginValues, { dispatch, rejectWithValue }) => {
+    
     try {
       const response = await client.post<LoginResponse>("auth/login", values);
-      const { access_token, userName, email } = response.data;
+      const { access_token, userName, email, fullName } = response.data;
 
       if (access_token) {
-        const user: User = { username: userName, email, token: access_token };
+        const user: User = { username: userName, email, token: access_token, fullName };
         dispatch(setUser(user));
         localStorage.setItem("token", access_token);
+        dispatch(setToken(access_token));
         await dispatch(fetchBills());
       } else {
         // Handle case where access_token is undefined or null

@@ -10,6 +10,7 @@ interface UserState {
   email: string | null;
   error: string | null;
   token: string | null;
+  fullName: string | null;
 }
 
 const initialState: UserState = {
@@ -17,6 +18,7 @@ const initialState: UserState = {
   email: null,
   token: null,
   error: null,
+  fullName: null,
 };
 
 const userSlice = createSlice({
@@ -26,6 +28,7 @@ const userSlice = createSlice({
     setUser: (state, action: PayloadAction<User>) => {
       state.username = action.payload.username;
       state.email = action.payload.email;
+      state.fullName = action.payload.fullName;
     },
     setError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
@@ -36,6 +39,9 @@ const userSlice = createSlice({
       state.error = "";
       state.token = null;
     },
+    setToken: (state, action: PayloadAction<string>) => {
+      state.token = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(rehydrateAuthState.fulfilled, (state, action) => {
@@ -49,7 +55,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, setError, logoutUser } = userSlice.actions;
+export const { setUser, setError, logoutUser, setToken } = userSlice.actions;
 
 export default userSlice.reducer;
 
@@ -63,3 +69,5 @@ export const selectCurrentUser = (state: RootState) => {
 // Selector to get the current error
 export const selectCurrentError = (state: RootState) =>
   state.user.error;
+
+export const selectToken = (state: RootState) => state.user.token;

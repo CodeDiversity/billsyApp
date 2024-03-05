@@ -29,11 +29,13 @@ export interface LoginResponse {
   access_token: string;
   userName: string;
   email: string;
+  fullName: string;
 }
 
 export interface User {
   username: string;
   email: string;
+  fullName: string;
 }
 
 export interface ErrorResponse {

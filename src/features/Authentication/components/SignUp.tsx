@@ -9,12 +9,14 @@ interface FormValues {
   email: string;
   password: string;
   username: string;
+  fullName: string;
 }
 
 interface FormErrors {
   email?: string;
   password?: string;
   username?: string;
+  fullName?: string;
 }
 
 export const SignUp = () => {
@@ -25,6 +27,7 @@ export const SignUp = () => {
       email: "",
       password: "",
       username: "",
+      fullName: "",
     },
     onSubmit: (values) => {
       client
@@ -63,6 +66,10 @@ export const SignUp = () => {
         errors.username = "Username is required";
       }
 
+      if(!values.fullName) {
+        errors.fullName = "Name is required";
+      }
+
       return errors;
     },
   });
@@ -93,6 +100,19 @@ export const SignUp = () => {
             value={formik.values.username}
           />
           {formik.errors.username ? (
+            <StyledError>{formik.errors.username}</StyledError>
+          ) : null}
+        </InputSection>
+        <InputSection>
+          <label htmlFor="fullName">Name</label>
+          <Input
+            id="fullName"
+            name="fullName"
+            type="text"
+            onChange={formik.handleChange}
+            value={formik.values.fullName}
+          />
+          {formik.errors.fullName ? (
             <StyledError>{formik.errors.username}</StyledError>
           ) : null}
         </InputSection>

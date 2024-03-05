@@ -97,10 +97,15 @@ const CTAButton = styled.button`
   color: #f0f0f0;
   border: none;
   border-radius: 5px;
+  display: flex;
+  justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 1rem;
-  width: 25%;
+  width: 20%;
+  &:hover {
+    background-color: #4397b9;
+  }
 `;
 
 const Card = styled.div`
@@ -135,7 +140,7 @@ const LowerSection = styled.div`
   ${sharedSectionStyles}
   flex-direction: row;
   justify-content: space-between;
-  padding-bottom: 5rem;
+  padding-bottom: 2.5rem;
 `;
 
 const ThirdsImage = styled.img`
@@ -151,7 +156,7 @@ const HeroSection = styled.div`
   align-items: center;
   width: 65%;
   background-color: #f0f0f0;
-  height: 600px;
+  height: 450px;
   margin-top: 2rem;
 `;
 

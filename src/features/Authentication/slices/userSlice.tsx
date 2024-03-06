@@ -61,8 +61,8 @@ export default userSlice.reducer;
 
 
 export const selectCurrentUser = (state: RootState) => {
-  const { username, email } = state.user;
-  return { username, email };
+  const { username, email, fullName } = state.user;
+  return { username, email, fullName };
 
 }
 

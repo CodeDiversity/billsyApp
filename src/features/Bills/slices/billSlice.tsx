@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../../../store";
 
 
 const initialState = {
@@ -23,3 +24,7 @@ const billSlice = createSlice({
 export const { setBills, setError } = billSlice.actions;
 
 export default billSlice.reducer;
+
+export const selectUserBills = (state: RootState) => state.bill.bills;
+
+// export const selectToken = (state: RootState) => state.user.token;

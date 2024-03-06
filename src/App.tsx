@@ -11,6 +11,9 @@ import { Bills } from "./features/Bills/components/Bills";
 import Settings from "./features/Settings/components/Settings";
 import Help from "./features/Help/components/Help";
 import { RequireAuth } from "./features/Authentication/hooks/protectedRoute";
+import { CreateBill } from "./features/Bills/components/CreateBillForm/CreateBill";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -26,17 +29,20 @@ function App() {
 
   return (
     <div>
-      <Routes>
-        <Route path="/register" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Landing />} />
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <Routes>
+          <Route path="/register" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Landing />} />
 
-        <Route element={<RequireAuth />}>
-          <Route path="/bills" element={<Bills />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/help" element={<Help />} />
-        </Route>
-      </Routes>
+          <Route element={<RequireAuth />}>
+            <Route path="/bills" element={<Bills />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/help" element={<Help />} />
+            <Route path="/new" element={<CreateBill />} />
+          </Route>
+        </Routes>
+      </LocalizationProvider>
     </div>
   );
 }

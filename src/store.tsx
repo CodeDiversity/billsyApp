@@ -6,7 +6,7 @@ import billSlice from "./features/Bills/slices/billSlice";
 export const store = configureStore({
   reducer: {
     user: userSlice,
-    bills: billSlice
+    bill: billSlice
   },
   });
 

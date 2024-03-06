@@ -23,13 +23,6 @@ interface FormValues {
   dueDate: Date;
 }
 
-interface FormErrors {
-  name?: string;
-  amount?: string;
-  category?: string;
-  dueDate?: string;
-}
-
 export const CreateBill = () => {
   //TODO style date to match the rest or remove MUI date picker.
   const navigate = useNavigate();
@@ -40,7 +33,6 @@ export const CreateBill = () => {
     category: "",
     dueDate: "",
   });
-  console.log(formErrors);
   const validateForm = () => {
     let error = false;
     let errors = {

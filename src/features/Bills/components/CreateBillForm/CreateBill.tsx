@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { LoggedInLayout } from "../../../../common/Layouts/LoggedInLayout";
 import styled from "@emotion/styled";
 import { getErrorMessage } from "../../../../common/errorMessages";
@@ -6,10 +6,6 @@ import client from "../../../../axiosConfig";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import dayjs, { Dayjs } from "dayjs";
-import { makeStyles } from "@mui/material";
 
 interface Bill {
   name: string;
@@ -24,37 +20,80 @@ interface FormValues {
   name: string;
   amount: number;
   category: string;
+  dueDate: Date;
 }
 
-// const useStyles = makeStyles({
-//   root: {
-//     "& .MuiOutlinedInput-input": {
-//       border: 0,
-//       borderRadius: 3,
-//       color: "red",
-//       fontSize: 24,
-//     },
-//   },
-// });
+interface FormErrors {
+  name?: string;
+  amount?: string;
+  category?: string;
+  dueDate?: string;
+}
 
 export const CreateBill = () => {
   //TODO style date to match the rest or remove MUI date picker.
   const navigate = useNavigate();
-  const [error, setError] = useState("");
-  const [date, setDate] = useState<Date | Dayjs | null>(dayjs(new Date()));
+  const [resError, setResError] = useState("");
+  const [formErrors, setFormErrors] = useState({
+    name: "",
+    amount: "",
+    category: "",
+    dueDate: "",
+  });
+  console.log(formErrors);
+  const validateForm = () => {
+    let error = false;
+    let errors = {
+      name: "",
+      amount: "",
+      category: "",
+      dueDate: "",
+    };
+    if (!formik.values.name) {
+      errors.name = "Name is required";
+      error = true;
+    }
+    if (!formik.values.amount) {
+      errors.amount = "Amount is required";
+      error = true;
+    }
+    if (!formik.values.category) {
+      errors.category = "Category is required";
+      error = true;
+    }
+    if (!formik.values.dueDate) {
+      errors.dueDate = "Due date is required";
+      error = true;
+    }
+    if (!error) {
+      setFormErrors({
+        name: "",
+        amount: "",
+        category: "",
+        dueDate: "",
+      });
+      return true;
+    } else {
+      setFormErrors(errors);
+      return false;
+    }
+  };
   const formik = useFormik<FormValues>({
     initialValues: {
       name: "",
       amount: 0,
       category: "",
+      dueDate: new Date(),
     },
     onSubmit: (values: any) => {
-      console.log(values);
-      console.log(date?.toString());
+      const errorFree = validateForm();
+      if (!errorFree) {
+        return;
+      }
       const bill: Bill = {
         name: values.name,
         amount: values.amount,
-        dueDate: date as Date,
+        dueDate: values.dueDate,
         isPaid: false,
         category: values.category,
       };
@@ -67,16 +106,11 @@ export const CreateBill = () => {
         .catch((error) => {
           console.error(error);
           if (error.response.data?.code) {
-            setError(getErrorMessage(error.response.data.code));
+            setResError(getErrorMessage(error.response.data.code));
           } else {
-            setError("An unexpected error occurred. Please try again.");
+            setResError("An unexpected error occurred. Please try again.");
           }
         });
-    },
-    validate: (values) => {
-      const errors: FormErrors = {};
-
-      return errors;
     },
   });
   return (
@@ -94,8 +128,8 @@ export const CreateBill = () => {
               value={formik.values.name}
               placeholder="Enter bill name"
             />
-            {formik.errors.name ? (
-              <StyledError>{formik.errors.name}</StyledError>
+            {formErrors.name ? (
+              <StyledError>{formErrors.name}</StyledError>
             ) : null}
           </InputSection>
           <InputSection>
@@ -105,15 +139,12 @@ export const CreateBill = () => {
               name="amount"
               type="number"
               data-type="currency"
-              min="0.01"
-              step="0.01"
-              max="100000"
               onChange={formik.handleChange}
               value={formik.values.amount}
               placeholder="$0.00"
             />
-            {formik.errors.amount ? (
-              <StyledError>{formik.errors.amount}</StyledError>
+            {formErrors.amount ? (
+              <StyledError>{formErrors.amount}</StyledError>
             ) : null}
           </InputSection>
           <InputSection>
@@ -126,32 +157,28 @@ export const CreateBill = () => {
               value={formik.values.category}
               placeholder="Enter category"
             />
-            {formik.errors.category ? (
-              <StyledError>{formik.errors.category}</StyledError>
+            {formErrors.category ? (
+              <StyledError>{formErrors.category}</StyledError>
             ) : null}
           </InputSection>
           <InputSection>
             <label htmlFor="dueDate">Due Date</label>
             <DatePicker
-              data-testId="dueDate"
-              name="dueDate"
-              value={date}
-              onChange={(date) => setDate(date)}
-              sx={{
-                borderRadius: "0.5rem",
-                width: "100%",
-                marginLeft: "5px",
-                marginTop: "10px",
-                fontFamily: "Montserrat, sans-serif",
-                fontSize: "10px",
+              value={formik.values.dueDate}
+              sx={{ borderRadius: "0.5rem", fontFamily: "inherit" }}
+              onChange={(value) => formik.setFieldValue("dueDate", value, true)}
+              slotProps={{
+                textField: {
+                  variant: "outlined",
+                },
               }}
             />
-            {/* {formik.errors.dueDate ? (
-              <StyledError>{formik.errors.name}</StyledError>
-            ) : null} */}
+            {formik.errors.dueDate ? (
+              <StyledError>{formErrors.dueDate}</StyledError>
+            ) : null}
           </InputSection>
           <SubmitButton type="submit">Submit</SubmitButton>
-          {error && <StyledError>{error}</StyledError>}
+          {resError && <StyledError>{resError}</StyledError>}
         </Form>
       </Wrapper>
     </LoggedInLayout>

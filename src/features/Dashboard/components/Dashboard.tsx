@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../Authentication/slices/userSlice";
 import { selectUserBills } from "../../Bills/slices/billSlice";
 import { useNavigate } from "react-router-dom";
+import { UpcomingBills } from "../../Bills/components/UpcomingBills/UpcomingBills";
 
 
 type Props = {};
@@ -19,6 +20,7 @@ export const Dashboard = (props: Props) => {
   return (
     <LoggedInLayout>
       <WelcomeBackText>Welcome back, {firstName}</WelcomeBackText>
+      <UpcomingBills/>
       <AddBillButton onClick={() => navigate('/new')}>Add Bill</AddBillButton>
     </LoggedInLayout>
   );

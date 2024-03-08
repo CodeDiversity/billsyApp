@@ -1,7 +1,7 @@
 export interface Bill {
   name: string;
   amount: number;
-  dueDate: Date;
+  dueDate: string;
   isPaid?: boolean;
   category: string;
   lastPaidAt?: Date;

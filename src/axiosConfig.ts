@@ -10,6 +10,5 @@ const client = axios.create({
   timeout: 10000, // Optional: Set default request timeout
 });
 
-console.log(client)
 
 export default client;

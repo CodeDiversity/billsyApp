@@ -30,12 +30,14 @@ export interface LoginResponse {
   userName: string;
   email: string;
   fullName: string;
+  categories: string[];
 }
 
 export interface User {
   username: string;
   email: string;
   fullName: string;
+  categories: string[];
 }
 
 export interface ErrorResponse {

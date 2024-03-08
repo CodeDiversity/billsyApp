@@ -24,10 +24,10 @@ export const loginUser = createAsyncThunk(
     
     try {
       const response = await client.post<LoginResponse>("auth/login", values);
-      const { access_token, userName, email, fullName } = response.data;
+      const { access_token, userName, email, fullName, categories } = response.data;
 
       if (access_token) {
-        const user: User = { username: userName, email, token: access_token, fullName };
+        const user: User = { username: userName, email, token: access_token, fullName, categories };
         dispatch(setUser(user));
         localStorage.setItem("token", access_token);
         dispatch(setToken(access_token));

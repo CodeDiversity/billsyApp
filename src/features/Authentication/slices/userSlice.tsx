@@ -11,6 +11,7 @@ interface UserState {
   error: string | null;
   token: string | null;
   fullName: string | null;
+  categories: string[];
 }
 
 const initialState: UserState = {
@@ -19,6 +20,7 @@ const initialState: UserState = {
   token: null,
   error: null,
   fullName: null,
+  categories: [],
 };
 
 const userSlice = createSlice({
@@ -29,6 +31,7 @@ const userSlice = createSlice({
       state.username = action.payload.username;
       state.email = action.payload.email;
       state.fullName = action.payload.fullName;
+      state.categories = action.payload.categories;
     },
     setError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
@@ -71,3 +74,5 @@ export const selectCurrentError = (state: RootState) =>
   state.user.error;
 
 export const selectToken = (state: RootState) => state.user.token;
+
+export const selectCategories = (state: RootState) => state.user.categories;

@@ -7,19 +7,14 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { selectCategories } from "../../../Authentication/slices/userSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { InputLabel, MenuItem } from "@mui/material";
 import TextField from "@mui/material/TextField";
+import { createBill } from "../../thunks/billThunks";
+import { AppDispatch } from "../../../../store";
+import { Bill } from "../../types/billTypes";
 
-interface Bill {
-  name: string;
-  amount: number;
-  dueDate: Date;
-  isPaid: boolean;
-  category: string;
-  lastPaidAt?: Date;
-}
 
 interface FormValues {
   name: string;
@@ -33,6 +28,7 @@ export const CreateBill = () => {
   //TODO style date to match the rest or remove MUI date picker.
   const navigate = useNavigate();
   const [resError, setResError] = useState("");
+  const dispatch = useDispatch<AppDispatch>();
   const [formErrors, setFormErrors] = useState({
     name: "",
     amount: "",
@@ -83,7 +79,7 @@ export const CreateBill = () => {
       category: "",
       dueDate: new Date(),
     },
-    onSubmit: (values: any) => {
+    onSubmit: async (values: any) => {
       const errorFree = validateForm();
       if (!errorFree) {
         return;
@@ -92,23 +88,10 @@ export const CreateBill = () => {
         name: values.name,
         amount: values.amount,
         dueDate: values.dueDate,
-        isPaid: false,
         category: values.category,
       };
-      client
-        .post("bills", bill)
-        .then((response) => {
-          console.log(response);
-          navigate("/bills");
-        })
-        .catch((error) => {
-          console.error(error);
-          if (error.response.data?.code) {
-            setResError(getErrorMessage(error.response.data.code));
-          } else {
-            setResError("An unexpected error occurred. Please try again.");
-          }
-        });
+      await dispatch(createBill(bill)).unwrap();
+      navigate("/"); // Navigate on success
     },
   });
   return (

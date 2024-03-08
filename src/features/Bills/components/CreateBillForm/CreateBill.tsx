@@ -6,6 +6,11 @@ import client from "../../../../axiosConfig";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { selectCategories } from "../../../Authentication/slices/userSlice";
+import { useSelector } from "react-redux";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { InputLabel, MenuItem } from "@mui/material";
+import TextField from "@mui/material/TextField";
 
 interface Bill {
   name: string;
@@ -24,6 +29,7 @@ interface FormValues {
 }
 
 export const CreateBill = () => {
+  const categories = useSelector(selectCategories);
   //TODO style date to match the rest or remove MUI date picker.
   const navigate = useNavigate();
   const [resError, setResError] = useState("");
@@ -112,10 +118,11 @@ export const CreateBill = () => {
         <Form onSubmit={formik.handleSubmit}>
           <InputSection>
             <label htmlFor="name">Name</label>
-            <Input
+            <TextField
               id="name"
               name="name"
               type="text"
+              variant="outlined"
               onChange={formik.handleChange}
               value={formik.values.name}
               placeholder="Enter bill name"
@@ -126,10 +133,11 @@ export const CreateBill = () => {
           </InputSection>
           <InputSection>
             <label htmlFor="amount">Amount</label>
-            <Input
+            <TextField
               id="amount"
               name="amount"
               type="number"
+              variant="outlined"
               data-type="currency"
               onChange={formik.handleChange}
               value={formik.values.amount}
@@ -140,15 +148,22 @@ export const CreateBill = () => {
             ) : null}
           </InputSection>
           <InputSection>
-            <label htmlFor="category">Category</label>
-            <Input
+            <InputLabel id="Category">Category</InputLabel>
+            <Select
               id="category"
               name="category"
-              type="text"
+              displayEmpty
               onChange={formik.handleChange}
               value={formik.values.category}
-              placeholder="Enter category"
-            />
+              label="Category"
+            >
+              <MenuItem value="">Select Category</MenuItem>
+              {categories.map((category) => (
+                <MenuItem key={category} value={category}>
+                  {category}
+                </MenuItem>
+              ))}
+            </Select>
             {formErrors.category ? (
               <StyledError>{formErrors.category}</StyledError>
             ) : null}

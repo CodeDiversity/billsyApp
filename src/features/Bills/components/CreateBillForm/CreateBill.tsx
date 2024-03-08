@@ -148,7 +148,7 @@ export const CreateBill = () => {
             ) : null}
           </InputSection>
           <InputSection>
-            <InputLabel id="Category">Category</InputLabel>
+            <label id="Category">Category</label>
             <Select
               id="category"
               name="category"
@@ -158,7 +158,7 @@ export const CreateBill = () => {
               label="Category"
             >
               <MenuItem value="">Select Category</MenuItem>
-              {categories.map((category) => (
+              {categories?.map((category) => (
                 <MenuItem key={category} value={category}>
                   {category}
                 </MenuItem>

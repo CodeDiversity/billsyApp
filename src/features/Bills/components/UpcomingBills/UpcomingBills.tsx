@@ -29,7 +29,7 @@ export const UpcomingBills = () => {
                 </StyledParagraph>
                 <StyledParagraph>{b.category}</StyledParagraph>
               </div>
-              <StyledParagraph>${b.amount}</StyledParagraph>
+              <StyledParagraph>${b.amount.toLocaleString()}</StyledParagraph>
             </StyledBill>
           );
         })}

@@ -193,8 +193,9 @@ const Form = styled.form`
 
 const Header = styled.h1`
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 1rem;
+  margin-left: 2.5%;
 `;
 
 const InputSection = styled.div`

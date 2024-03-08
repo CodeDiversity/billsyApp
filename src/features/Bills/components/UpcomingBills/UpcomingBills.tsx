@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserBills } from "../../slices/billSlice";
 import { Bill } from "../../types/billTypes";
+import styled from "@emotion/styled";
 
 export const UpcomingBills = () => {
   const bills: Bill[] = useSelector(selectUserBills);
@@ -10,26 +11,51 @@ export const UpcomingBills = () => {
   }, [bills]);
   return (
     <div>
-      <h1>Upcoming Bills</h1>
+      <StyledHeader>Upcoming Bills</StyledHeader>
       <div>
         {bills?.map((b) => {
           return (
-            <div key={b.name}>
-              <p>{b.name}</p>
-              <p>{b.amount}</p>
-              <p>
-                {new Date(b.dueDate).toLocaleDateString("en-us", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-              </p>
-              <p>{b.category}</p>
-            </div>
+            <StyledBill key={b.name}>
+              <div>
+                <StyledParagraph>{b.name}</StyledParagraph>
+                <StyledParagraph>
+                  Due on{" "}
+                  {new Date(b.dueDate).toLocaleDateString("en-us", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </StyledParagraph>
+                <StyledParagraph>{b.category}</StyledParagraph>
+              </div>
+              <StyledParagraph>${b.amount}</StyledParagraph>
+            </StyledBill>
           );
         })}
       </div>
     </div>
   );
 };
+
+const StyledBill = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+  &:last-child {
+    border-bottom: none;
+  }
+`
+
+const StyledParagraph = styled.p`
+  margin-bottom: 10px;;
+`
+
+const StyledHeader = styled.h2`
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;

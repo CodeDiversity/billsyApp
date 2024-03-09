@@ -3,20 +3,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { logoutUser, setError, setToken, setUser } from '../slices/userSlice';
 import { getErrorMessage } from '../../../common/errorMessages';
 import client from '../../../axiosConfig';
-import { LoginResponse, LoginValues, User } from '../types/userTypes';
+import { ErrorResponse, LoginResponse, LoginValues, User } from '../types/userTypes';
 import { RootState } from '../../../store';
 import { fetchBills } from '../../Bills/thunks/billThunks';
 
 
 // Define a type for your expected error structure if possible
-interface ErrorResponse {
-  response?: {
-    data?: {
-      code?: string;
-      message?: string;
-    };
-  };
-}
+
 
 export const loginUser = createAsyncThunk(
   'user/loginUser',

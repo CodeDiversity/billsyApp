@@ -1,15 +1,13 @@
 import { useState } from "react";
 import { LoggedInLayout } from "../../../../common/Layouts/LoggedInLayout";
 import styled from "@emotion/styled";
-import { getErrorMessage } from "../../../../common/errorMessages";
-import client from "../../../../axiosConfig";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { selectCategories } from "../../../Authentication/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { InputLabel, MenuItem } from "@mui/material";
+import Select from "@mui/material/Select";
+import { MenuItem } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { createBill } from "../../thunks/billThunks";
 import { AppDispatch } from "../../../../store";

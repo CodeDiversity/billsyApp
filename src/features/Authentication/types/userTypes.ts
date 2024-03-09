@@ -48,3 +48,12 @@ export interface ErrorResponse {
     };
   };
 }
+
+export interface ErrorResponse {
+  response?: {
+    data?: {
+      code?: string;
+      message?: string;
+    };
+  };
+}

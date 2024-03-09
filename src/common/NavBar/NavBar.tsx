@@ -7,10 +7,9 @@ import { useDispatch } from "react-redux";
 import { logoutUser } from "../../features/Authentication/slices/userSlice";
 import LogoImg from "../../images/logo.webp";
 
-
 // Navbar component
 export const NavBar = () => {
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -58,25 +57,8 @@ const dispatch = useDispatch();
 
   return (
     <NavContainer>
-      <LogoText>
-        Billsy
-      </LogoText>
+      <LogoText>Billsy</LogoText>
       <NavLinks>
-        <NavLinkItem>
-          <NavLink href="#">Link 1</NavLink>
-        </NavLinkItem>
-        <NavLinkItem>
-          <NavLink href="#">Link 2</NavLink>
-        </NavLinkItem>
-        <NavLinkItem>
-          <NavLink href="#">Link 3</NavLink>
-        </NavLinkItem>
-        <NavLinkItem>
-          <NavLink href="#">Link 4</NavLink>
-        </NavLinkItem>
-        <NavLinkItem>
-          <NavLink href="#">Link 5</NavLink>
-        </NavLinkItem>
         <NavLinkItem>{isUserLoggedIn()}</NavLinkItem>
       </NavLinks>
     </NavContainer>

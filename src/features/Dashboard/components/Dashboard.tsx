@@ -12,7 +12,6 @@ type Props = {};
 
 export const Dashboard = (props: Props) => {
   const currentUser = useSelector(selectCurrentUser);
-  const bills = useSelector(selectUserBills)
   const firstName = currentUser?.fullName?.split(" ")[0];
   const navigate = useNavigate();
   return (

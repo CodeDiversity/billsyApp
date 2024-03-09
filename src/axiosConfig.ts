@@ -12,8 +12,7 @@ const client = axios.create({
 client.interceptors.request.use(
   //@ts-ignore
   (config: AxiosRequestConfig) => {
-    const state = store.getState();
-    const token = state.user.token;
+    const token = localStorage.getItem("token");
     if (token) {
       config.headers = {
         ...(config.headers as AxiosRequestHeaders),

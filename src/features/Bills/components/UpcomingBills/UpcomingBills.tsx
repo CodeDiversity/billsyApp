@@ -5,10 +5,7 @@ import { Bill } from "../../types/billTypes";
 import styled from "@emotion/styled";
 
 export const UpcomingBills = () => {
-  const bills: Bill[] = useSelector(selectUserBills);
-  useEffect(() => {
-    console.log(bills);
-  }, [bills]);
+  const bills: Bill[] = useSelector(selectUserBills).slice(0, 5)
   return (
     <div>
       <StyledHeader>Upcoming Bills</StyledHeader>

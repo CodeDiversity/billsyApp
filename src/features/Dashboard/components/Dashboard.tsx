@@ -7,7 +7,6 @@ import { selectUserBills } from "../../Bills/slices/billSlice";
 import { useNavigate } from "react-router-dom";
 import { UpcomingBills } from "../../Bills/components/UpcomingBills/UpcomingBills";
 
-
 type Props = {};
 
 export const Dashboard = (props: Props) => {
@@ -41,11 +40,9 @@ const Container = styled.div`
 `;
 
 const WelcomeBackText = styled.h2`
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 18px;
   margin-bottom: 20px;
 `;
-
 
 const AddBillButton = styled.button`
   background-color: #3f51b5;

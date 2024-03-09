@@ -15,6 +15,8 @@ import { Edit, Delete, Payment } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import { selectUserBills } from "../slices/billSlice";
 import { LoggedInLayout } from "../../../common/Layouts/LoggedInLayout";
+import { DeleteDialog } from "./DeleteDialog/DeleteDialog";
+import { Bill } from "../types/billTypes";
 
 export const Bills = () => {
   // Helper function to format date strings
@@ -27,8 +29,18 @@ const formatDate = (dateString: string | number | Date) => {
   return new Date(dateString).toLocaleDateString(undefined, options);
 };
 
+const emptyBill: Bill = {
+  _id: "",
+  name: "",
+  amount: 0,
+  dueDate: '',
+  category: "",
+};
+
  const [page, setPage] = useState(0);
  const [rowsPerPage, setRowsPerPage] = useState(10);
+ const [openDelete, setOpenDelete] = useState(false);
+ const [bill, setBill] = useState<Bill>(emptyBill);
 
  const handleChangePage = (event: any, newPage: React.SetStateAction<number>) => {
    setPage(newPage);
@@ -56,7 +68,8 @@ const formatDate = (dateString: string | number | Date) => {
   }
 
   const onDelete = (bill: any) => {
-    console.log("Delete bill", bill);
+    setBill(bill);
+    setOpenDelete(true);
   }
 
   const bills = useSelector(selectUserBills);
@@ -127,6 +140,7 @@ const formatDate = (dateString: string | number | Date) => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      <DeleteDialog open={openDelete} setOpen={setOpenDelete} bill={bill} />
     </LoggedInLayout>
   );
 };

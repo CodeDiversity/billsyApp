@@ -40,6 +40,7 @@ export const UpcomingBills = () => {
 
 const StyledBill = styled.div`
   display: flex;
+  width: 50%;
   justify-content: space-between;
   padding: 10px;
   border-bottom: 1px solid #ccc;
@@ -47,11 +48,11 @@ const StyledBill = styled.div`
   &:last-child {
     border-bottom: none;
   }
-`
+`;
 
 const StyledParagraph = styled.p`
-  margin-bottom: 10px;;
-`
+  margin-bottom: 10px;
+`;
 
 const StyledHeader = styled.h2`
   font-size: 2rem;

@@ -15,16 +15,31 @@ export const Dashboard = (props: Props) => {
   const bills = useSelector(selectUserBills)
   const firstName = currentUser?.fullName?.split(" ")[0];
   const navigate = useNavigate();
-  console.log(bills);
-  console.log(currentUser)
   return (
     <LoggedInLayout>
-      <WelcomeBackText>Welcome back, {firstName}</WelcomeBackText>
-      <UpcomingBills/>
-      <AddBillButton onClick={() => navigate('/new')}>Add Bill</AddBillButton>
+      <Container>
+        <WelcomeBackText>Welcome back, {firstName}</WelcomeBackText>
+        <UpcomingBills />
+        <JustifyCenter>
+          <AddBillButton onClick={() => navigate("/new")}>
+            Add Bill
+          </AddBillButton>
+        </JustifyCenter>
+      </Container>
     </LoggedInLayout>
   );
 };
+
+const JustifyCenter = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 50%;
+`;
+
+const Container = styled.div`
+  width: 100%;
+  margin-top: 20px;
+`;
 
 const WelcomeBackText = styled.h2`
   font-size: 24px;

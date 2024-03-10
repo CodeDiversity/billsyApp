@@ -14,6 +14,7 @@ import { RequireAuth } from "./features/Authentication/hooks/protectedRoute";
 import { CreateBill } from "./features/Bills/components/CreateBillForm/CreateBill";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
+import { EditBill } from "./features/Bills/components/EditBillForm/EditBill";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -40,6 +41,7 @@ function App() {
             <Route path="/settings" element={<Settings />} />
             <Route path="/help" element={<Help />} />
             <Route path="/new" element={<CreateBill />} />
+            <Route path="/edit/:id" element={<EditBill />} />
           </Route>
         </Routes>
       </LocalizationProvider>

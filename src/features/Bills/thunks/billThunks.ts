@@ -38,3 +38,15 @@ export const deleteBillSoft = createAsyncThunk(
     }
   }
 );
+
+export const editBill = createAsyncThunk(
+  'user/editBill',
+  async (bill: any, { dispatch, rejectWithValue }) => {
+    try {
+      await client.patch(`bills/${bill._id}`, bill);
+      dispatch(fetchBills()).unwrap();
+    } catch (error) {
+      return rejectWithValue("An unexpected error occurred. Please try again.");
+    }
+  }
+);

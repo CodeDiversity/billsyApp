@@ -65,7 +65,7 @@ const emptyBill: Bill = {
   };
 
   const onEdit = (bill: any) => {
-    console.log("Edit bill", bill);
+    navigate(`/edit/${bill._id}`);
   }
 
   const onPay = (bill: any) => {

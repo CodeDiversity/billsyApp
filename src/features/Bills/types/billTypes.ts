@@ -2,7 +2,7 @@ export interface Bill {
   _id?: string;
   name: string;
   amount: number;
-  dueDate: string;
+  dueDate: string | Date;
   isPaid?: boolean;
   category: string;
   lastPaidAt?: Date;

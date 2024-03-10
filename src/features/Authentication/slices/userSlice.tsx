@@ -4,6 +4,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../../store";
 import { rehydrateAuthState } from "../thunks/userThunks";
 import { User } from "../types/userTypes";
+import { createSelector } from "reselect";
 
 interface UserState {
   username: string | null;
@@ -63,11 +64,17 @@ export const { setUser, setError, logoutUser, setToken } = userSlice.actions;
 export default userSlice.reducer;
 
 
-export const selectCurrentUser = (state: RootState) => {
-  const { username, email, fullName } = state.user;
-  return { username, email, fullName };
+const userSelector = (state: { user: any; }) => state.user;
 
-}
+// Memoized selector: only recomputes when `state.user` changes.
+export const selectCurrentUser = createSelector(
+  [userSelector], // Array of input selectors.
+  (user) => {
+    // This function only runs when `state.user` changes.
+    const { username, email, fullName } = user;
+    return { username, email, fullName };
+  }
+);
 
 // Selector to get the current error
 export const selectCurrentError = (state: RootState) =>

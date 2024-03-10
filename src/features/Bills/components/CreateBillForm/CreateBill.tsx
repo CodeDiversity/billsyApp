@@ -20,6 +20,7 @@ interface FormValues {
   category: string;
   dueDate: Date;
   payLink?: string;
+  isRecurring?: boolean;
 }
 
 export const CreateBill = () => {
@@ -34,6 +35,7 @@ export const CreateBill = () => {
     category: "",
     dueDate: "",
     payLink: "",
+    isRecurring: "",
   });
   const validateForm = () => {
     let error = false;
@@ -43,6 +45,7 @@ export const CreateBill = () => {
       category: "",
       dueDate: "",
       payLink: "",
+      isRecurring: "",
     };
     if (!formik.values.name) {
       errors.name = "Name is required";
@@ -67,6 +70,7 @@ export const CreateBill = () => {
         category: "",
         dueDate: "",
         payLink: "",
+        isRecurring: "",
       });
       return true;
     } else {
@@ -80,6 +84,8 @@ export const CreateBill = () => {
       amount: 0,
       category: "",
       dueDate: new Date(),
+      payLink: "",
+      isRecurring: false,
     },
     onSubmit: async (values: any) => {
       const errorFree = validateForm();
@@ -92,6 +98,7 @@ export const CreateBill = () => {
         dueDate: values.dueDate,
         category: values.category,
         payLink: values.payLink,
+        isRecurring: Boolean(values.isRecurring),
       };
       await dispatch(createBill(bill)).unwrap();
       navigate("/"); // Navigate on success
@@ -183,6 +190,21 @@ export const CreateBill = () => {
             {formik.errors.payLink ? (
               <StyledError>{formik.errors.payLink}</StyledError>
             ) : null}
+          </InputSection>
+          <InputSection>
+            <label htmlFor="isRecurring">Recurring</label>
+            <Select
+              id="isRecurring"
+              name="isRecurring"
+              displayEmpty
+              onChange={formik.handleChange}
+              value={formik.values.isRecurring}
+              label="Recurring"
+            >
+              <MenuItem value="">Select Recurring</MenuItem>
+              <MenuItem value={"true"}>Yes</MenuItem>
+              <MenuItem value={"false"}>No</MenuItem>
+            </Select>
           </InputSection>
           <SubmitButton type="submit">Submit</SubmitButton>
           {resError && <StyledError>{resError}</StyledError>}

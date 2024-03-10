@@ -12,15 +12,18 @@ import {
   styled as muiStyled,
 } from "@mui/material";
 import { Edit, Delete, Payment } from "@mui/icons-material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUserBills } from "../slices/billSlice";
 import { LoggedInLayout } from "../../../common/Layouts/LoggedInLayout";
 import { DeleteDialog } from "./DeleteDialog/DeleteDialog";
 import { Bill } from "../types/billTypes";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
+import { payBill } from "../thunks/billThunks";
+import { AppDispatch } from "../../../store";
 
 export const Bills = () => {
+  const dispatch = useDispatch<AppDispatch>();
   // Helper function to format date strings
   const formatDate = (dateString: string | number | Date) => {
     const options: Intl.DateTimeFormatOptions = {
@@ -78,6 +81,7 @@ export const Bills = () => {
       }
       window.open(link, "_blank");
     }
+    dispatch(payBill(bill._id)).unwrap();
   };
 
   const onDelete = (bill: any) => {

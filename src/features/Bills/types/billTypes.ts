@@ -7,4 +7,5 @@ export interface Bill {
   category: string;
   lastPaidAt?: Date;
   payLink?: string;
+  isRecurring?: boolean;
 }

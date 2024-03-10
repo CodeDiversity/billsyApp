@@ -50,3 +50,15 @@ export const editBill = createAsyncThunk(
     }
   }
 );
+
+export const payBill = createAsyncThunk(
+  'user/payBill',
+  async (id: string, { dispatch, rejectWithValue }) => {
+    try {
+      await client.patch(`bills/paid/${id}`);
+      dispatch(fetchBills()).unwrap();
+    } catch (error) {
+      return rejectWithValue("An unexpected error occurred. Please try again.");
+    }
+  }
+);

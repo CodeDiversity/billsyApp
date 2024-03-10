@@ -20,41 +20,43 @@ import { Bill } from "../types/billTypes";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 
-
 export const Bills = () => {
   // Helper function to format date strings
-const formatDate = (dateString: string | number | Date) => {
-  const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+  const formatDate = (dateString: string | number | Date) => {
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    return new Date(dateString).toLocaleDateString(undefined, options);
   };
-  return new Date(dateString).toLocaleDateString(undefined, options);
-};
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const emptyBill: Bill = {
-  _id: "",
-  name: "",
-  amount: 0,
-  dueDate: '',
-  category: "",
-};
+  const emptyBill: Bill = {
+    _id: "",
+    name: "",
+    amount: 0,
+    dueDate: "",
+    category: "",
+  };
 
- const [page, setPage] = useState(0);
- const [rowsPerPage, setRowsPerPage] = useState(10);
- const [openDelete, setOpenDelete] = useState(false);
- const [bill, setBill] = useState<Bill>(emptyBill);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [bill, setBill] = useState<Bill>(emptyBill);
 
- const handleChangePage = (event: any, newPage: React.SetStateAction<number>) => {
-   setPage(newPage);
- };
+  const handleChangePage = (
+    event: any,
+    newPage: React.SetStateAction<number>
+  ) => {
+    setPage(newPage);
+  };
 
- const handleChangeRowsPerPage = (event: { target: { value: string; }; }) => {
-   setRowsPerPage(parseInt(event.target.value, 10));
-   setPage(0); // Reset to first page after rows per page change
- };
+  const handleChangeRowsPerPage = (event: { target: { value: string } }) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset to first page after rows per page change
+  };
 
   // Helper function to format currency
   const formatCurrency = (amount: number | bigint) => {
@@ -66,21 +68,22 @@ const emptyBill: Bill = {
 
   const onEdit = (bill: any) => {
     navigate(`/edit/${bill._id}`);
-  }
+  };
 
   const onPay = (bill: any) => {
-    // check if paylink starts with http or https if not add https
     let link = bill.payLink;
-    if (!bill.payLink.startsWith("http")) {
-     link = `https://${link}`;
+    if (bill.payLink) {
+      if (!bill.payLink.startsWith("http")) {
+        link = `https://${link}`;
+      }
+      window.open(link, "_blank");
     }
-    window.open(link, "_blank");
-  }
+  };
 
   const onDelete = (bill: any) => {
     setBill(bill);
     setOpenDelete(true);
-  }
+  };
 
   const bills = useSelector(selectUserBills);
   const totalBills = bills.length;

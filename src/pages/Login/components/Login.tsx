@@ -8,6 +8,7 @@ import {
   selectCurrentError,
   setError,
 } from "../../../features/Authentication/slices/userSlice";
+import { LoggedOutLayout } from "../../../common/Layouts/LoggedOutLayout";
 
 // Define TypeScript interfaces for form values and validation errors
 interface FormValues {
@@ -58,47 +59,49 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <Wrapper>
-      <Header>Login</Header>
-      <Form onSubmit={formik.handleSubmit}>
-        <InputSection>
-          <label htmlFor="username">Username</label>
-          <Input
-            id="username"
-            name="username"
-            type="text"
-            onChange={formik.handleChange}
-            value={formik.values.username}
-          />
-          {formik.errors.username ? (
-            <StyledError>{formik.errors.username}</StyledError>
-          ) : null}
-        </InputSection>
-        <InputSection>
-          <label htmlFor="password">Password</label>
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            onChange={formik.handleChange}
-            value={formik.values.password}
-          />
-          {formik.errors.password ? (
-            <StyledError>{formik.errors.password}</StyledError>
-          ) : null}
-        </InputSection>
-        <SubmitButton type="submit">Submit</SubmitButton>
-        {error && <StyledError>{error}</StyledError>}
-      </Form>
-      <SignUpSection>
-        <p>
-          Don't have an account?{" "}
-          <a href="#" onClick={() => navigate("/register")}>
-            Sign up
-          </a>
-        </p>
-      </SignUpSection>
-    </Wrapper>
+    <LoggedOutLayout>
+      <Wrapper>
+        <Header>Login</Header>
+        <Form onSubmit={formik.handleSubmit}>
+          <InputSection>
+            <label htmlFor="username">Username</label>
+            <Input
+              id="username"
+              name="username"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.username}
+            />
+            {formik.errors.username ? (
+              <StyledError>{formik.errors.username}</StyledError>
+            ) : null}
+          </InputSection>
+          <InputSection>
+            <label htmlFor="password">Password</label>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              onChange={formik.handleChange}
+              value={formik.values.password}
+            />
+            {formik.errors.password ? (
+              <StyledError>{formik.errors.password}</StyledError>
+            ) : null}
+          </InputSection>
+          <SubmitButton type="submit">Submit</SubmitButton>
+          {error && <StyledError>{error}</StyledError>}
+        </Form>
+        <SignUpSection>
+          <p>
+            Don't have an account?{" "}
+            <a href="#" onClick={() => navigate("/register")}>
+              Sign up
+            </a>
+          </p>
+        </SignUpSection>
+      </Wrapper>
+    </LoggedOutLayout>
   );
 };
 

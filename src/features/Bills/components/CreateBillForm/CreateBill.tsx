@@ -19,6 +19,7 @@ interface FormValues {
   amount: number;
   category: string;
   dueDate: Date;
+  payLink?: string;
 }
 
 export const CreateBill = () => {
@@ -32,6 +33,7 @@ export const CreateBill = () => {
     amount: "",
     category: "",
     dueDate: "",
+    payLink: "",
   });
   const validateForm = () => {
     let error = false;
@@ -40,6 +42,7 @@ export const CreateBill = () => {
       amount: "",
       category: "",
       dueDate: "",
+      payLink: "",
     };
     if (!formik.values.name) {
       errors.name = "Name is required";
@@ -63,6 +66,7 @@ export const CreateBill = () => {
         amount: "",
         category: "",
         dueDate: "",
+        payLink: "",
       });
       return true;
     } else {
@@ -87,6 +91,7 @@ export const CreateBill = () => {
         amount: values.amount,
         dueDate: values.dueDate,
         category: values.category,
+        payLink: values.payLink,
       };
       await dispatch(createBill(bill)).unwrap();
       navigate("/"); // Navigate on success
@@ -163,6 +168,20 @@ export const CreateBill = () => {
             />
             {formik.errors.dueDate ? (
               <StyledError>{formErrors.dueDate}</StyledError>
+            ) : null}
+          </InputSection>
+          {/* Pay Link Field Add */}
+          <InputSection>
+            <label htmlFor="payLink">Pay Link</label>
+            <Input
+              id="payLink"
+              name="payLink"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.payLink}
+            />
+            {formik.errors.payLink ? (
+              <StyledError>{formik.errors.payLink}</StyledError>
             ) : null}
           </InputSection>
           <SubmitButton type="submit">Submit</SubmitButton>

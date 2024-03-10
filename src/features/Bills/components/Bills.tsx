@@ -9,7 +9,7 @@ import {
   Paper,
   Button,
   TablePagination,
-  styled,
+  styled as muiStyled,
 } from "@mui/material";
 import { Edit, Delete, Payment } from "@mui/icons-material";
 import { useSelector } from "react-redux";
@@ -17,6 +17,9 @@ import { selectUserBills } from "../slices/billSlice";
 import { LoggedInLayout } from "../../../common/Layouts/LoggedInLayout";
 import { DeleteDialog } from "./DeleteDialog/DeleteDialog";
 import { Bill } from "../types/billTypes";
+import { useNavigate } from "react-router-dom";
+import styled from "@emotion/styled";
+
 
 export const Bills = () => {
   // Helper function to format date strings
@@ -28,6 +31,8 @@ const formatDate = (dateString: string | number | Date) => {
   };
   return new Date(dateString).toLocaleDateString(undefined, options);
 };
+
+const navigate = useNavigate();
 
 const emptyBill: Bill = {
   _id: "",
@@ -64,7 +69,12 @@ const emptyBill: Bill = {
   }
 
   const onPay = (bill: any) => {
-    console.log("Pay bill", bill);
+    // check if paylink starts with http or https if not add https
+    let link = bill.payLink;
+    if (!bill.payLink.startsWith("http")) {
+     link = `https://${link}`;
+    }
+    window.open(link, "_blank");
   }
 
   const onDelete = (bill: any) => {
@@ -77,6 +87,7 @@ const emptyBill: Bill = {
 
   return (
     <LoggedInLayout>
+      <AddBillButton onClick={() => navigate("/new")}>Add Bill</AddBillButton>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -145,6 +156,24 @@ const emptyBill: Bill = {
   );
 };
 
-const StyledTableCell = styled(TableCell)`
+const StyledTableCell = muiStyled(TableCell)`
   font-weight: bold;
+`;
+
+const AddBillButton = styled.button`
+  background-color: #3f51b5;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: 0.3s;
+  width: 10%;
+  &:hover {
+    background-color: #2f3d9e;
+  }
 `;

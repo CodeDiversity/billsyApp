@@ -6,4 +6,5 @@ export interface Bill {
   isPaid?: boolean;
   category: string;
   lastPaidAt?: Date;
+  payLink?: string;
 }

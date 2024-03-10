@@ -4,6 +4,7 @@ import client from "../../../axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { getErrorMessage } from "../../../common/errorMessages";
 import { useState } from "react";
+import { LoggedOutLayout } from "../../../common/Layouts/LoggedOutLayout";
 
 interface FormValues {
   email: string;
@@ -66,7 +67,7 @@ export const SignUp = () => {
         errors.username = "Username is required";
       }
 
-      if(!values.fullName) {
+      if (!values.fullName) {
         errors.fullName = "Name is required";
       }
 
@@ -74,65 +75,67 @@ export const SignUp = () => {
     },
   });
   return (
-    <Wrapper>
-      <Header>Sign Up</Header>
-      <Form onSubmit={formik.handleSubmit}>
-        <InputSection>
-          <label htmlFor="email">Email Address</label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            onChange={formik.handleChange}
-            value={formik.values.email}
-          />
-          {formik.errors.email ? (
-            <StyledError>{formik.errors.email}</StyledError>
-          ) : null}
-        </InputSection>
-        <InputSection>
-          <label htmlFor="username">Username</label>
-          <Input
-            id="username"
-            name="username"
-            type="text"
-            onChange={formik.handleChange}
-            value={formik.values.username}
-          />
-          {formik.errors.username ? (
-            <StyledError>{formik.errors.username}</StyledError>
-          ) : null}
-        </InputSection>
-        <InputSection>
-          <label htmlFor="fullName">Name</label>
-          <Input
-            id="fullName"
-            name="fullName"
-            type="text"
-            onChange={formik.handleChange}
-            value={formik.values.fullName}
-          />
-          {formik.errors.fullName ? (
-            <StyledError>{formik.errors.username}</StyledError>
-          ) : null}
-        </InputSection>
-        <InputSection>
-          <label htmlFor="password">Password</label>
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            onChange={formik.handleChange}
-            value={formik.values.password}
-          />
-          {formik.errors.password ? (
-            <StyledError>{formik.errors.password}</StyledError>
-          ) : null}
-        </InputSection>
-        <SubmitButton type="submit">Submit</SubmitButton>
-        {error && <StyledError>{error}</StyledError>}
-      </Form>
-    </Wrapper>
+    <LoggedOutLayout>
+      <Wrapper>
+        <Header>Sign Up</Header>
+        <Form onSubmit={formik.handleSubmit}>
+          <InputSection>
+            <label htmlFor="email">Email Address</label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              onChange={formik.handleChange}
+              value={formik.values.email}
+            />
+            {formik.errors.email ? (
+              <StyledError>{formik.errors.email}</StyledError>
+            ) : null}
+          </InputSection>
+          <InputSection>
+            <label htmlFor="username">Username</label>
+            <Input
+              id="username"
+              name="username"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.username}
+            />
+            {formik.errors.username ? (
+              <StyledError>{formik.errors.username}</StyledError>
+            ) : null}
+          </InputSection>
+          <InputSection>
+            <label htmlFor="fullName">Name</label>
+            <Input
+              id="fullName"
+              name="fullName"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.fullName}
+            />
+            {formik.errors.fullName ? (
+              <StyledError>{formik.errors.username}</StyledError>
+            ) : null}
+          </InputSection>
+          <InputSection>
+            <label htmlFor="password">Password</label>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              onChange={formik.handleChange}
+              value={formik.values.password}
+            />
+            {formik.errors.password ? (
+              <StyledError>{formik.errors.password}</StyledError>
+            ) : null}
+          </InputSection>
+          <SubmitButton type="submit">Submit</SubmitButton>
+          {error && <StyledError>{error}</StyledError>}
+        </Form>
+      </Wrapper>
+    </LoggedOutLayout>
   );
 };
 

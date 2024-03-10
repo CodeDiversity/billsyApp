@@ -133,6 +133,7 @@ export const SignUp = () => {
           </InputSection>
           <SubmitButton type="submit">Submit</SubmitButton>
           {error && <StyledError>{error}</StyledError>}
+          <StyledMessage>Note: this app is in beta mode, real data should not be entered.</StyledMessage>
         </Form>
       </Wrapper>
     </LoggedOutLayout>
@@ -145,6 +146,15 @@ const Wrapper = styled.section`
   align-items: center;
   height: 100vh;
   flex-direction: column;
+`;
+
+const StyledMessage = styled.p`
+  color: #777;
+  font-size: 1rem;
+  font-weight: 800;
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: bold;
 `;
 
 const Form = styled.form`

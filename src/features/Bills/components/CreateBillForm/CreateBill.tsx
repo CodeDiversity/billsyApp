@@ -12,6 +12,7 @@ import TextField from "@mui/material/TextField";
 import { createBill } from "../../thunks/billThunks";
 import { AppDispatch } from "../../../../store";
 import { Bill } from "../../types/billTypes";
+import { toast } from "react-toastify";
 
 
 interface FormValues {
@@ -101,6 +102,7 @@ export const CreateBill = () => {
         isRecurring: Boolean(values.isRecurring),
       };
       await dispatch(createBill(bill)).unwrap();
+      toast.success("Bill created!");
       navigate("/"); // Navigate on success
     },
   });

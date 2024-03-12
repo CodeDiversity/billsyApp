@@ -1,13 +1,12 @@
-import React from "react";
 import { LoggedInLayout } from "../../../common/Layouts/LoggedInLayout";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentUser, updateUserInfo } from "../../Authentication/slices/userSlice";
+import { selectCurrentUser } from "../../Authentication/slices/userSlice";
 import { MenuItem, Select, TextField } from "@mui/material";
 import styled from "@emotion/styled";
 import { updateUser } from "../../Authentication/thunks/userThunks";
 import { AppDispatch } from "../../../store";
-import { SettingsUser, User } from "../../Authentication/types/userTypes";
+import { SettingsUser } from "../../Authentication/types/userTypes";
 import { toast } from "react-toastify";
 
 export default function Settings() {

@@ -13,6 +13,7 @@ import { editBill } from "../../thunks/billThunks";
 import { AppDispatch } from "../../../../store";
 import { Bill } from "../../types/billTypes";
 import { selectUserBills } from "../../slices/billSlice";
+import { toast } from "react-toastify";
 
 interface FormValues {
   name: string;
@@ -113,6 +114,7 @@ export const EditBill = () => {
       // edit bill thunk
       dispatch(editBill(bill)).unwrap();
       navigate("/bills"); // Navigate on success
+      toast.success("Bill Edited");
     },
     enableReinitialize: true,
   });

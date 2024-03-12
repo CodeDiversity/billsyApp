@@ -14,7 +14,7 @@ export const UpcomingBills = () => {
           return (
             <StyledBill key={b.name}>
               <div>
-                <StyledParagraph>{b.name}</StyledParagraph>
+                <StyledParagraphBold>{b.name}</StyledParagraphBold>
                 <StyledParagraph>
                   Due on{" "}
                   {new Date(b.dueDate).toLocaleDateString("en-us", {
@@ -51,8 +51,14 @@ const StyledParagraph = styled.p`
   margin-bottom: 10px;
 `;
 
+const StyledParagraphBold = styled(StyledParagraph)`
+  margin-bottom: 10px;
+  font-weight: bolder;
+  font-size: 1.2rem;
+`;
+
 const StyledHeader = styled.h2`
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: bold;
   margin-top: 20px;
   margin-bottom: 20px;

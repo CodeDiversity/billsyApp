@@ -24,7 +24,9 @@ function App() {
         // No token found, dispatch logout
         dispatch(logoutUser());
       }
-      // If there's a token, you might want to set up your user state here
+    }).catch((error) => {
+      console.error("Error rehydrating auth state", error);
+      dispatch(logoutUser());
     });
   }, [dispatch]);
 

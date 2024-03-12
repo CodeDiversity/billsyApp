@@ -132,14 +132,23 @@ export const Bills = () => {
                     <TableCell>{bill.name}</TableCell>
                     <TableCell>{formatDate(bill.dueDate)}</TableCell>
                     <TableCell>{formatCurrency(bill.amount)}</TableCell>
-                    <TableCell>
-                      <Button onClick={() => onEdit(bill)}>
+                    <TableCell sx={{ width: "200px" }}>
+                      <Button
+                        sx={{ padding: 0, minWidth: 40 }}
+                        onClick={() => onEdit(bill)}
+                      >
                         <Edit />
                       </Button>
-                      <Button onClick={() => onDelete(bill)}>
+                      <Button
+                        sx={{ padding: 0, minWidth: 40 }}
+                        onClick={() => onDelete(bill)}
+                      >
                         <Delete />
                       </Button>
-                      <Button onClick={() => onPay(bill)}>
+                      <Button
+                        sx={{ padding: 0, minWidth: 40 }}
+                        onClick={() => onPay(bill)}
+                      >
                         <Payment />
                       </Button>
                     </TableCell>

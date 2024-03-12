@@ -37,6 +37,7 @@ const JustifyCenter = styled.div`
 const Container = styled.div`
   width: 100%;
   margin-top: 20px;
+  overflow: auto;
 `;
 
 const WelcomeBackText = styled.h2`

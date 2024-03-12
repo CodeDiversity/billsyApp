@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectUserBills } from "../../slices/billSlice";
 import { Bill } from "../../types/billTypes";
 import styled from "@emotion/styled";
 
 export const UpcomingBills = () => {
-  const bills: Bill[] = useSelector(selectUserBills).slice(0, 5)
+  const bills: Bill[] = useSelector(selectUserBills).slice(0, 5);
   return (
-    <div>
+    <>
       <StyledHeader>Upcoming Bills</StyledHeader>
       <div>
         {bills?.map((b) => {
@@ -31,7 +30,7 @@ export const UpcomingBills = () => {
           );
         })}
       </div>
-    </div>
+    </>
   );
 };
 

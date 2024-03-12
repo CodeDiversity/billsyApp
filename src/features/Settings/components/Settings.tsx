@@ -49,8 +49,8 @@ export default function Settings() {
         <InputSection>
           <label htmlFor="name">Name</label>
           <TextField
-            id="name"
-            name="name"
+            id="fullName"
+            name="fullName"
             type="text"
             onChange={formik.handleChange}
             value={formik.values.fullName}

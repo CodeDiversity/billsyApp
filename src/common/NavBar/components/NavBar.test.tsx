@@ -6,10 +6,11 @@ import { screen } from "@testing-library/react";
 describe("NavBar", () => {
   it('should render without error', () => {
     renderWithProviders(<NavBar />);
-  })
+  });
+
   it('should render the logo', () => {
     renderWithProviders(<NavBar />);
-    const logo = screen.getByText(/billsy/i);
+    const logo = screen.getByText(/Billsy/i);
     expect(logo).toBeInTheDocument();
-  })
+  });
 });

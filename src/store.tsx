@@ -1,19 +1,31 @@
 // src/app/store.js
-import { configureStore } from "@reduxjs/toolkit";
-import userSlice from './features/Authentication/slices/userSlice';
-import billSlice from "./features/Bills/slices/billSlice";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import userReducer from './features/Authentication/slices/userSlice';
+import billReducer from "./features/Bills/slices/billSlice";
 
 export const store = configureStore({
   reducer: {
-    user: userSlice,
-    bill: billSlice
+    user: userReducer,
+    bill: billReducer,
   },
+});
+
+
+const rootReducer = combineReducers({
+  user: userReducer,
+  bill: billReducer,
+});
+
+
+export function setupStore(preloadedState = {}) {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState,
   });
+}
 
 
 // Type for the dispatch function
-export type AppDispatch = typeof store.dispatch;
-
-export type RootState = ReturnType<typeof store.getState>;
-
-export type AppStore = typeof store;
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore["dispatch"];

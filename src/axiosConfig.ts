@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
-import { store } from './store';
 
 
 // Create an Axios instance with default configuration

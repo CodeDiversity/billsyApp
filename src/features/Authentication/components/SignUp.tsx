@@ -133,7 +133,9 @@ export const SignUp = () => {
           </InputSection>
           <SubmitButton type="submit">Submit</SubmitButton>
           {error && <StyledError>{error}</StyledError>}
-          <StyledMessage>Note: this app is in beta mode, real data should not be entered.</StyledMessage>
+          <StyledMessage>
+            Note: this app is in beta mode, real data should not be entered.
+          </StyledMessage>
         </Form>
       </Wrapper>
     </LoggedOutLayout>

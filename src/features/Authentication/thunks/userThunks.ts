@@ -14,7 +14,7 @@ import { fetchBills } from '../../Bills/thunks/billThunks';
 export const loginUser = createAsyncThunk(
   'user/loginUser',
   async (values: LoginValues, { dispatch, rejectWithValue }) => {
-    
+
     try {
       const response = await client.post<LoginResponse>("auth/login", values);
       const { access_token, userName, email, fullName, categories } = response.data;

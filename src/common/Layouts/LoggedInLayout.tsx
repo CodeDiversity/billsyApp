@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { LeftNav } from "../../features/Dashboard/components/LeftNav/LeftNav";
-import { NavBar } from "../NavBar/NavBar";
+import { NavBar } from "../NavBar/components/NavBar";
 import styled from "@emotion/styled";
 
 interface LayoutProps {

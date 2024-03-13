@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { useFormik } from "formik";
-import client from "../../../axiosConfig";
+import client from "../../../axios/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { getErrorMessage } from "../../../common/errorMessages";
 import { useState } from "react";

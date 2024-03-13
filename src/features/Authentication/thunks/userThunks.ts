@@ -2,7 +2,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { logoutUser, setError, setToken, setUser, updateUserInfo } from '../slices/userSlice';
 import { getErrorMessage } from '../../../common/errorMessages';
-import client from '../../../axiosConfig';
+import client from '../../../axios/axiosConfig';
 import { ErrorResponse, LoginResponse, LoginValues, SettingsUser, User } from '../types/userTypes';
 import { RootState } from '../../../store';
 import { fetchBills } from '../../Bills/thunks/billThunks';

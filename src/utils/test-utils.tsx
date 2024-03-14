@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react'
-import { render } from '@testing-library/react'
+import { render, renderHook } from '@testing-library/react'
 import type { RenderOptions } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -39,4 +39,22 @@ export function renderWithProviders(
     store,
     ...render(ui, { wrapper: Wrapper, ...renderOptions })
   }
+}
+
+export function renderHookWithProviders (
+  callback: (...args: any[]) => any,
+  extendedRenderOptions: ExtendedRenderOptions = {}
+) {
+  const {
+    preloadedState = {},
+    store = setupStore(preloadedState),
+  } = extendedRenderOptions
+
+  const Wrapper = ({ children }: PropsWithChildren) => (
+    <MockRouter>
+      <Provider store={store}> {children} </Provider>
+    </MockRouter>
+  );
+
+  return renderHook(callback, { wrapper: Wrapper })
 }

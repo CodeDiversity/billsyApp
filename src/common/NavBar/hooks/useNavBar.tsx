@@ -48,11 +48,11 @@ export const useNavBar = () => {
     dispatch(logoutUser());
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-    dispatch(logoutUser());
     navigate("/");
   };
 
   return {
     isUserLoggedIn,
+    isTokenExpired
   };
 };

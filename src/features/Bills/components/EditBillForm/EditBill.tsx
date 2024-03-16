@@ -11,7 +11,7 @@ import { MenuItem } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { editBill } from "../../thunks/billThunks";
 import { AppDispatch } from "../../../../store";
-import { Bill } from "../../types/billTypes";
+import { Bill } from "../../types/Bill";
 import { selectUserBills } from "../../slices/billSlice";
 import { toast } from "react-toastify";
 
@@ -51,7 +51,7 @@ export const EditBill = () => {
     category: "",
     dueDate: "",
     payLink: "",
-    isRecurring:"",
+    isRecurring: "",
   });
   const validateForm = () => {
     let error = false;
@@ -61,7 +61,7 @@ export const EditBill = () => {
       category: "",
       dueDate: "",
       payLink: "",
-      isRecurring:"",
+      isRecurring: "",
     };
     if (!formik.values.name) {
       errors.name = "Name is required";
@@ -86,7 +86,7 @@ export const EditBill = () => {
         category: "",
         dueDate: "",
         payLink: "",
-        isRecurring:"",
+        isRecurring: "",
       });
       return true;
     } else {

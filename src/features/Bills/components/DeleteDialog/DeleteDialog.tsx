@@ -5,7 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Bill } from "../../types/billTypes";
+import { Bill } from "../../types/Bill";
 import { useDispatch } from "react-redux";
 import { deleteBillSoft } from "../../thunks/billThunks";
 import { AppDispatch } from "../../../../store";
@@ -17,8 +17,7 @@ interface DeleteDialogProps {
 }
 
 export const DeleteDialog = ({ open, setOpen, bill }: DeleteDialogProps) => {
-
-  const dispatch= useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleClose = () => {
     setOpen(false);
@@ -26,11 +25,11 @@ export const DeleteDialog = ({ open, setOpen, bill }: DeleteDialogProps) => {
 
   const handleDelete = () => {
     console.log("Deleting bill", bill);
-    if(bill?._id){
+    if (bill?._id) {
       dispatch(deleteBillSoft(bill?._id)).unwrap();
     }
     setOpen(false);
-  }
+  };
 
   return (
     <Dialog
@@ -39,9 +38,7 @@ export const DeleteDialog = ({ open, setOpen, bill }: DeleteDialogProps) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">
-        {"Delete Bill?"}
-      </DialogTitle>
+      <DialogTitle id="alert-dialog-title">{"Delete Bill?"}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
           Are you sure you want to delete {bill?.name}?

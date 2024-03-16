@@ -16,11 +16,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUserBills } from "../slices/billSlice";
 import { LoggedInLayout } from "../../../common/Layouts/LoggedInLayout";
 import { DeleteDialog } from "./DeleteDialog/DeleteDialog";
-import { Bill } from "../types/billTypes";
+import { Bill } from "../types/Bill";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { payBill } from "../thunks/billThunks";
 import { AppDispatch } from "../../../store";
+import { CreatePayment } from "../../Payments/components/CreatePayment";
+import { set } from "date-fns";
 
 export const Bills = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -47,6 +49,7 @@ export const Bills = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [openDelete, setOpenDelete] = useState(false);
+  const [openPayment, setOpenPayment] = useState(false);
   const [bill, setBill] = useState<Bill>(emptyBill);
 
   const handleChangePage = (
@@ -74,14 +77,15 @@ export const Bills = () => {
   };
 
   const onPay = (bill: any) => {
+    setBill(bill);
     let link = bill.payLink;
+    setOpenPayment(true);
     if (bill.payLink) {
       if (!bill.payLink.startsWith("http")) {
         link = `https://${link}`;
       }
       window.open(link, "_blank");
     }
-    dispatch(payBill(bill._id)).unwrap();
   };
 
   const onDelete = (bill: any) => {
@@ -168,6 +172,7 @@ export const Bills = () => {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
       <DeleteDialog open={openDelete} setOpen={setOpenDelete} bill={bill} />
+      <CreatePayment open={openPayment} setOpen={setOpenPayment} bill={bill} />
     </LoggedInLayout>
   );
 };

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { selectUserBills } from "../../slices/billSlice";
-import { Bill } from "../../types/billTypes";
+import { Bill } from "../../types/Bill";
 import styled from "@emotion/styled";
 
 export const UpcomingBills = () => {

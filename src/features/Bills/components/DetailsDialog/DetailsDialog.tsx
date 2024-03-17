@@ -41,10 +41,21 @@ export const DetailsDialog = ({ open, setOpen, bill }: CreatePaymentProps) => {
           />
         </DisplayFlex>
         <DetailsSection>
-          <DetailsFont>Next Due Date: {transformedDate}</DetailsFont>
-          <DetailsFont>Amount: ${bill.amount}</DetailsFont>
-          <DetailsFont>Total Payments: {bill.payments?.length}</DetailsFont>
-          <DetailsFont>Total Amount Paid: ${sumOfPayments} </DetailsFont>
+          <DetailsFont>
+            <BoldSpan>Next Due Date: </BoldSpan> {transformedDate}
+          </DetailsFont>
+          <DetailsFont>
+            {" "}
+            <BoldSpan>Amount </BoldSpan> ${bill.amount}
+          </DetailsFont>
+          <DetailsFont>
+            {" "}
+            <BoldSpan>Total Payments </BoldSpan> {bill.payments?.length}
+          </DetailsFont>
+          <DetailsFont>
+            {" "}
+            <BoldSpan>Total Amount Paid </BoldSpan> ${sumOfPayments}{" "}
+          </DetailsFont>
           <PaymentWrapper>
             <PaymentDetailsFontBold>
               {transFormedPayments?.length ? "Payments" : ""}
@@ -58,7 +69,7 @@ export const DetailsDialog = ({ open, setOpen, bill }: CreatePaymentProps) => {
                     sx={{
                       width: "43%",
                       padding: "1rem",
-                      margin: '.5rem'
+                      margin: ".5rem",
                     }}
                   >
                     <PaymentDetailsFont>
@@ -104,6 +115,7 @@ const DetailsFont = styled.p`
   font-size: 1.2rem;
   margin-bottom: 1rem;
   margin-left: 1rem;
+  font-weight: 300;
 `;
 
 const PaymentDetailsFont = styled.div`
@@ -113,7 +125,7 @@ const PaymentDetailsFont = styled.div`
 `;
 
 const PaymentDetailsFontBold = styled(PaymentDetailsFont)`
-  font-weight: bold;
+  font-weight: 900 !important;
 `;
 
 const BoldSpan = styled.span`

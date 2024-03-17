@@ -58,6 +58,7 @@ export const DetailsDialog = ({ open, setOpen, bill }: CreatePaymentProps) => {
                     sx={{
                       width: "43%",
                       padding: "1rem",
+                      margin: '.5rem'
                     }}
                   >
                     <PaymentDetailsFont>
@@ -89,7 +90,6 @@ export const DetailsDialog = ({ open, setOpen, bill }: CreatePaymentProps) => {
 const PaymentsDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
   padding: 1rem;
 `;
 

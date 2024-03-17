@@ -9,6 +9,7 @@ import { createPayment } from "../thunks/paymentThunks";
 import { Payment } from "../types";
 import { payBill } from "../../Bills/thunks/billThunks";
 import { useMemo } from "react";
+import { toast } from "react-toastify";
 
 interface CreatePaymentProps {
   open: boolean;
@@ -44,6 +45,7 @@ export const CreatePayment = ({ open, setOpen, bill }: CreatePaymentProps) => {
       dispatch(createPayment(payment));
       dispatch(payBill(bill._id!)).unwrap();
       setOpen(false);
+      toast.success("Bill Paid");
     },
     enableReinitialize: true,
   });

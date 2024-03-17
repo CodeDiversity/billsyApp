@@ -38,6 +38,17 @@ export interface User {
   email: string;
   fullName: string;
   categories: string[];
+  phoneNumber?: string;
+  emailReminderTime?: string;
+  currency?: string;
+}
+
+export interface SettingsUser {
+  email: string;
+  fullName: string;
+  phoneNumber: string;
+  emailReminderTime: string;
+  currency: string;
 }
 
 export interface ErrorResponse {

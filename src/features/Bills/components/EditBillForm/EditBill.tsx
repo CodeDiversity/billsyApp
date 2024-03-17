@@ -11,8 +11,9 @@ import { MenuItem } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { editBill } from "../../thunks/billThunks";
 import { AppDispatch } from "../../../../store";
-import { Bill } from "../../types/billTypes";
+import { Bill } from "../../types/Bill";
 import { selectUserBills } from "../../slices/billSlice";
+import { toast } from "react-toastify";
 
 interface FormValues {
   name: string;
@@ -50,7 +51,7 @@ export const EditBill = () => {
     category: "",
     dueDate: "",
     payLink: "",
-    isRecurring:"",
+    isRecurring: "",
   });
   const validateForm = () => {
     let error = false;
@@ -60,7 +61,7 @@ export const EditBill = () => {
       category: "",
       dueDate: "",
       payLink: "",
-      isRecurring:"",
+      isRecurring: "",
     };
     if (!formik.values.name) {
       errors.name = "Name is required";
@@ -85,7 +86,7 @@ export const EditBill = () => {
         category: "",
         dueDate: "",
         payLink: "",
-        isRecurring:"",
+        isRecurring: "",
       });
       return true;
     } else {
@@ -113,6 +114,7 @@ export const EditBill = () => {
       // edit bill thunk
       dispatch(editBill(bill)).unwrap();
       navigate("/bills"); // Navigate on success
+      toast.success("Bill Edited");
     },
     enableReinitialize: true,
   });

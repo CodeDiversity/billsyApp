@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setBills } from "../slices/billSlice";
-import client from "../../../axiosConfig";
+import client from "../../../axios/axiosConfig";
 
 
 export const fetchBills = createAsyncThunk(

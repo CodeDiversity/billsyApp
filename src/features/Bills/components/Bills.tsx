@@ -11,16 +11,17 @@ import {
   TablePagination,
   styled as muiStyled,
 } from "@mui/material";
-import { Edit, Delete, Payment } from "@mui/icons-material";
+import { Edit, Delete, Payment,InfoOutlined } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserBills } from "../slices/billSlice";
 import { LoggedInLayout } from "../../../common/Layouts/LoggedInLayout";
 import { DeleteDialog } from "./DeleteDialog/DeleteDialog";
-import { Bill } from "../types/billTypes";
+import { Bill } from "../types/Bill";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
-import { payBill } from "../thunks/billThunks";
 import { AppDispatch } from "../../../store";
+import { CreatePayment } from "../../Payments/components/CreatePayment";
+import { DetailsDialog } from "./DetailsDialog/DetailsDialog";
 
 export const Bills = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -47,6 +48,8 @@ export const Bills = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [openDelete, setOpenDelete] = useState(false);
+  const [openPayment, setOpenPayment] = useState(false);
+  const [openDetails, setOpenDetails] = useState(false);
   const [bill, setBill] = useState<Bill>(emptyBill);
 
   const handleChangePage = (
@@ -73,15 +76,21 @@ export const Bills = () => {
     navigate(`/edit/${bill._id}`);
   };
 
+  const onDetails = (bill: any) => {
+    setBill(bill);
+    setOpenDetails(true);
+  }
+
   const onPay = (bill: any) => {
+    setBill(bill);
     let link = bill.payLink;
+    setOpenPayment(true);
     if (bill.payLink) {
       if (!bill.payLink.startsWith("http")) {
         link = `https://${link}`;
       }
       window.open(link, "_blank");
     }
-    dispatch(payBill(bill._id)).unwrap();
   };
 
   const onDelete = (bill: any) => {
@@ -151,6 +160,14 @@ export const Bills = () => {
                       >
                         <Payment />
                       </Button>
+                      <Button
+                        sx={{ padding: 0, minWidth: 40 }}
+                        onClick={() => {
+                          onDetails(bill);
+                        }}
+                      >
+                        <InfoOutlined />
+                      </Button>
                     </TableCell>
                   </TableRow>
                 )
@@ -167,7 +184,9 @@ export const Bills = () => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      <DetailsDialog open={openDetails} bill={bill} setOpen={setOpenDetails} />
       <DeleteDialog open={openDelete} setOpen={setOpenDelete} bill={bill} />
+      <CreatePayment open={openPayment} setOpen={setOpenPayment} bill={bill} />
     </LoggedInLayout>
   );
 };

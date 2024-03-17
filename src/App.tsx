@@ -15,6 +15,8 @@ import { CreateBill } from "./features/Bills/components/CreateBillForm/CreateBil
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { EditBill } from "./features/Bills/components/EditBillForm/EditBill";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -46,6 +48,19 @@ function App() {
             <Route path="/edit/:id" element={<EditBill />} />
           </Route>
         </Routes>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+          limit={3}
+        />
       </LocalizationProvider>
     </div>
   );

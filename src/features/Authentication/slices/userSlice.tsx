@@ -2,8 +2,8 @@
 // src/features/user/userSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../../store";
-import { rehydrateAuthState } from "../thunks/userThunks";
-import { User } from "../types/userTypes";
+import { rehydrateAuthState, updateUser } from '../thunks/userThunks';
+import { SettingsUser, User } from "../types/userTypes";
 import { createSelector } from "reselect";
 
 interface UserState {
@@ -29,13 +29,13 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<User>) => {
-      state.username = action.payload.username;
-      state.email = action.payload.email;
-      state.fullName = action.payload.fullName;
-      state.categories = action.payload.categories;
+      Object.assign(state, action.payload);
     },
     setError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
+    },
+    updateUserInfo: (state, action: PayloadAction<SettingsUser>) => {
+      Object.assign(state, action.payload);
     },
     logoutUser: (state) => {
       state.username = null;
@@ -45,7 +45,7 @@ const userSlice = createSlice({
     },
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(rehydrateAuthState.fulfilled, (state, action) => {
@@ -59,7 +59,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, setError, logoutUser, setToken } = userSlice.actions;
+export const { setUser, setError, logoutUser, setToken, updateUserInfo} = userSlice.actions;
 
 export default userSlice.reducer;
 
@@ -71,8 +71,7 @@ export const selectCurrentUser = createSelector(
   [userSelector], // Array of input selectors.
   (user) => {
     // This function only runs when `state.user` changes.
-    const { username, email, fullName } = user;
-    return { username, email, fullName };
+    return user;
   }
 );
 

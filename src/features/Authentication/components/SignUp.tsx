@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { useFormik } from "formik";
-import client from "../../../axiosConfig";
+import client from "../../../axios/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { getErrorMessage } from "../../../common/errorMessages";
 import { useState } from "react";
@@ -133,7 +133,9 @@ export const SignUp = () => {
           </InputSection>
           <SubmitButton type="submit">Submit</SubmitButton>
           {error && <StyledError>{error}</StyledError>}
-          <StyledMessage>Note: this app is in beta mode, real data should not be entered.</StyledMessage>
+          <StyledMessage>
+            Note: this app is in beta mode, real data should not be entered.
+          </StyledMessage>
         </Form>
       </Wrapper>
     </LoggedOutLayout>

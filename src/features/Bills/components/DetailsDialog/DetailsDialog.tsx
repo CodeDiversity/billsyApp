@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Dialog } from "@mui/material";
 import { Bill } from "../../types/Bill";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { Payment } from '../../../Payments/types/index';
+import { Payment } from "../../../Payments/types/index";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 
@@ -21,9 +21,9 @@ export const DetailsDialog = ({ open, setOpen, bill }: CreatePaymentProps) => {
       date: new Date(payment.date).toLocaleDateString(),
     };
   });
-const sumOfPayments = bill.payments?.reduce((acc, payment) => {
-  return acc + (payment.amount ?? 0);
-}, 0);
+  const sumOfPayments = bill.payments?.reduce((acc, payment) => {
+    return acc + (payment.amount ?? 0);
+  }, 0);
   return (
     <Dialog open={open} maxWidth="md" fullWidth={true}>
       <Wrapper>
@@ -46,27 +46,39 @@ const sumOfPayments = bill.payments?.reduce((acc, payment) => {
           <DetailsFont>Total Payments: {bill.payments?.length}</DetailsFont>
           <DetailsFont>Total Amount Paid: ${sumOfPayments} </DetailsFont>
           <PaymentWrapper>
-            <PaymentDetailsFont>Payments:</PaymentDetailsFont>
-            {transFormedPayments?.map((payment: Payment) => {
-              console.log(payment.amount, "payment");
-              return (
-                <Card key={payment.id}>
+            <PaymentDetailsFontBold>
+              {transFormedPayments?.length ? "Payments" : ""}
+            </PaymentDetailsFontBold>
+            <PaymentsDiv>
+              {transFormedPayments?.map((payment: Payment) => {
+                console.log(payment.amount, "payment");
+                return (
+                  <Card
+                    key={payment.id}
+                    sx={{
+                      width: "43%",
+                      padding: "1rem",
+                    }}
+                  >
                     <PaymentDetailsFont>
-                      Date Paid: {payment.date as String}
+                      <BoldSpan>Date Paid: </BoldSpan>
+                      {payment.date as String}
                     </PaymentDetailsFont>
                     <PaymentDetailsFont>
-                      Amount: ${payment.amount}
+                      <BoldSpan> Amount: </BoldSpan>${payment.amount}
                     </PaymentDetailsFont>
                     <PaymentDetailsFont>
-                      Confirmation Number: {payment.confirmationNumber}
+                      <BoldSpan>Confirmation Number:</BoldSpan>{" "}
+                      {payment.confirmationNumber}
                     </PaymentDetailsFont>
 
                     <PaymentDetailsFont>
                       Note: {payment.note}
                     </PaymentDetailsFont>
                   </Card>
-              );
-            })}
+                );
+              })}
+            </PaymentsDiv>
           </PaymentWrapper>
         </DetailsSection>
       </Wrapper>
@@ -74,26 +86,39 @@ const sumOfPayments = bill.payments?.reduce((acc, payment) => {
   );
 };
 
+const PaymentsDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 1rem;
+`;
+
 const PaymentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
-`;
-
-const PaymentDiv = styled.div`
-  display: flex;
-  flex-direction: column;
+  margin-left: 1rem;
 `;
 
 const DetailsFont = styled.p`
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   margin-bottom: 1rem;
+  margin-left: 1rem;
 `;
 
-const PaymentDetailsFont = styled(DetailsFont)`
+const PaymentDetailsFont = styled.div`
   font-size: 1.2rem;
-  margin-right: 1rem;
   padding: 0;
+  line-height: 1.5;
+`;
+
+const PaymentDetailsFontBold = styled(PaymentDetailsFont)`
+  font-weight: bold;
+`;
+
+const BoldSpan = styled.span`
+  font-weight: 900;
+  margin-right: "100px";
 `;
 
 const DetailsSection = styled.section`
@@ -116,7 +141,6 @@ const Wrapper = styled.section`
   background-color: #f8f9fa;
 `;
 
-
 const Header = styled.h2`
   text-align: center;
   font-size: 2.5rem;
@@ -124,8 +148,3 @@ const Header = styled.h2`
   margin-left: 2%;
   padding-top: 2rem;
 `;
-
-
-
-
-

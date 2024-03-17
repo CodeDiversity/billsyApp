@@ -4,12 +4,15 @@ import { Bill } from "../../types/Bill";
 import styled from "@emotion/styled";
 
 export const UpcomingBills = () => {
-  const bills: Bill[] = useSelector(selectUserBills).slice(0, 5);
+  const bills: Bill[] = useSelector(selectUserBills);
+  const upcomingBills = bills.filter((b) => {
+    return new Date(b.dueDate) > new Date();
+  }).slice(0, 5);
   return (
     <>
       <StyledHeader>Upcoming Bills</StyledHeader>
       <div>
-        {bills?.map((b) => {
+        {upcomingBills?.map((b) => {
           return (
             <StyledBill key={b.name}>
               <div>

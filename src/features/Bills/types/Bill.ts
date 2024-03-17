@@ -1,3 +1,5 @@
+import { Payment } from "../../Payments/types";
+
 export interface Bill {
   _id?: string;
   name: string;
@@ -8,4 +10,5 @@ export interface Bill {
   lastPaidAt?: Date;
   payLink?: string;
   isRecurring?: boolean;
+  payments?: Payment[];
 }

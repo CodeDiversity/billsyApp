@@ -1,10 +1,11 @@
 
 
 export interface Payment {
+  id?: string;
   userId?: string;
   bill?: string;
   amount?: number;
-  date?: Date;
+  date: Date | string;
   isRecurring?: boolean;
   paidAt?: Date;
   updatedAt?: Date;

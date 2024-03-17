@@ -19,10 +19,8 @@ import { DeleteDialog } from "./DeleteDialog/DeleteDialog";
 import { Bill } from "../types/Bill";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
-import { payBill } from "../thunks/billThunks";
 import { AppDispatch } from "../../../store";
 import { CreatePayment } from "../../Payments/components/CreatePayment";
-import { set } from "date-fns";
 import { DetailsDialog } from "./DetailsDialog/DetailsDialog";
 
 export const Bills = () => {

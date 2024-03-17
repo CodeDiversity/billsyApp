@@ -154,9 +154,9 @@ const HeroSection = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 65%;
+  width: 75%;
   background-color: #f0f0f0;
-  height: 450px;
+  height: 500px;
   margin-top: 2rem;
 `;
 

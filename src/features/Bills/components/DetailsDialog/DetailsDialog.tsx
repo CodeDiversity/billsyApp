@@ -1,12 +1,6 @@
 import styled from "@emotion/styled";
 import { Dialog } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers";
-import { useFormik } from "formik";
-import { useMemo } from "react";
 import { useAppDispatch } from "../../../../hooks/hooks";
-import { createPayment } from "../../../Payments/thunks/paymentThunks";
-import { Payment } from "../../../Payments/types";
-import { payBill } from "../../thunks/billThunks";
 import { Bill } from "../../types/Bill";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
@@ -18,16 +12,6 @@ interface CreatePaymentProps {
 
 export const DetailsDialog = ({ open, setOpen, bill }: CreatePaymentProps) => {
   // useform with amount, confirmationNumber and note
-  const initialValues = useMemo(() => {
-    const date = new Date(bill.dueDate);
-    return {
-      amount: bill.amount,
-      confirmationNumber: "",
-      note: "",
-      date: date as Date,
-    };
-  }, [bill]);
-  console.log(bill, "bill from create payment");
   const dispatch = useAppDispatch();
   const date = new Date(bill.dueDate);
 

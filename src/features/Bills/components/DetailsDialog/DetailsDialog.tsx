@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { Dialog } from "@mui/material";
-import { useAppDispatch } from "../../../../hooks/hooks";
 import { Bill } from "../../types/Bill";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
@@ -11,10 +10,6 @@ interface CreatePaymentProps {
 }
 
 export const DetailsDialog = ({ open, setOpen, bill }: CreatePaymentProps) => {
-  // useform with amount, confirmationNumber and note
-  const dispatch = useAppDispatch();
-  const date = new Date(bill.dueDate);
-
   return (
     <Dialog open={open} maxWidth="md" fullWidth={true}>
       <Wrapper>
@@ -50,14 +45,6 @@ const Wrapper = styled.section`
   background-color: #f8f9fa;
 `;
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 40%;
-  padding: 2rem;
-  border-radius: 4px;
-`;
 
 const Header = styled.h2`
   text-align: center;
@@ -67,37 +54,7 @@ const Header = styled.h2`
   padding-top: 2rem;
 `;
 
-const InputSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-`;
 
-const Input = styled.input`
-  padding: 16px;
-  border-radius: 0.5rem;
-  border: 1px solid #ddd;
-  width: 93%;
-  margin-left: 5px;
-  margin-top: 10px;
-`;
 
-const SubmitButton = styled.button`
-  padding: 0.5rem;
-  border-radius: 4px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
 
-const StyledError = styled.div`
-  color: red;
-  font-size: 0.875rem;
-  font-weight: 800;
-`;
+

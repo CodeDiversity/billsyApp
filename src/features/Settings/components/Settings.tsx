@@ -12,7 +12,6 @@ import { toast } from "react-toastify";
 export default function Settings() {
   const user = useSelector(selectCurrentUser) as SettingsUser
   const dispatch = useDispatch<AppDispatch>();
-  console.log(user);
   const formik = useFormik({
     initialValues: {
       email: user?.email || "",

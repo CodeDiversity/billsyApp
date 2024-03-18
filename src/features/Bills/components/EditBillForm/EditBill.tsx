@@ -29,11 +29,8 @@ export const EditBill = () => {
   const [bill, setBill] = useState<Bill | undefined>();
   const params = useParams();
   const billId = params.id;
-  console.log(billId);
-  console.log(bill, "bill from state");
 
   const bills: Bill[] = useSelector(selectUserBills);
-  console.log(bills);
   const navigate = useNavigate();
   const [resError, setResError] = useState("");
   const dispatch = useDispatch<AppDispatch>();

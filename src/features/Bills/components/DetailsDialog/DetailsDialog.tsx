@@ -15,7 +15,6 @@ interface CreatePaymentProps {
 export const DetailsDialog = ({ open, setOpen, bill }: CreatePaymentProps) => {
   const transformedDate = new Date(bill.dueDate).toLocaleDateString();
   const transFormedPayments = bill.payments?.map((payment) => {
-    console.log(payment, "payment");
     return {
       ...payment,
       date: new Date(payment.date).toLocaleDateString(),
@@ -62,7 +61,6 @@ export const DetailsDialog = ({ open, setOpen, bill }: CreatePaymentProps) => {
             </PaymentDetailsFontBold>
             <PaymentsDiv>
               {transFormedPayments?.map((payment: Payment) => {
-                console.log(payment.amount, "payment");
                 return (
                   <Card
                     key={payment.id}

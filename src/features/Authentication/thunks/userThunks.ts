@@ -94,6 +94,5 @@ export const updateUser = createAsyncThunk(
 
 async function fetchUserData(): Promise<User> {
   const response = await client.get<User>('users');
-  console.log('fetchUserData response:', response);
   return response.data;
 }

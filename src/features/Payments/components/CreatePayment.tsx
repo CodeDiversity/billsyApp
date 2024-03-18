@@ -28,7 +28,6 @@ export const CreatePayment = ({ open, setOpen, bill }: CreatePaymentProps) => {
       date: date as Date,
     }
   }, [bill])
-  console.log(bill, "bill from create payment");
   const dispatch = useAppDispatch();
   const date = new Date(bill.dueDate)
 

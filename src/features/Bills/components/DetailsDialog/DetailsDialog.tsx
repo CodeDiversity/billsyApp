@@ -83,7 +83,7 @@ export const DetailsDialog = ({ open, setOpen, bill }: CreatePaymentProps) => {
                     </PaymentDetailsFont>
 
                     <PaymentDetailsFont>
-                      Note: {payment.note}
+                      <BoldSpan>Note:</BoldSpan> {payment.note}
                     </PaymentDetailsFont>
                   </Card>
                 );

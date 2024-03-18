@@ -13,6 +13,7 @@ import { createBill } from "../../thunks/billThunks";
 import { AppDispatch } from "../../../../store";
 import { Bill } from "../../types/Bill";
 import { toast } from "react-toastify";
+import { RecurringFrequency } from '../../types/RecurringFrequency';
 
 interface FormValues {
   name: string;
@@ -21,6 +22,7 @@ interface FormValues {
   dueDate: Date;
   payLink?: string;
   isRecurring?: boolean;
+  recurringFrequency: RecurringFrequency;
 }
 
 export const CreateBill = () => {
@@ -28,6 +30,7 @@ export const CreateBill = () => {
   //TODO style date to match the rest or remove MUI date picker.
   const navigate = useNavigate();
   const [resError, setResError] = useState("");
+  const [isReccuring, setIsRecurring] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const [formErrors, setFormErrors] = useState({
     name: "",
@@ -36,6 +39,7 @@ export const CreateBill = () => {
     dueDate: "",
     payLink: "",
     isRecurring: "",
+    recurringFrequency: '',
   });
   const validateForm = () => {
     let error = false;
@@ -46,6 +50,7 @@ export const CreateBill = () => {
       dueDate: "",
       payLink: "",
       isRecurring: "",
+      recurringFrequency: '',
     };
     if (!formik.values.name) {
       errors.name = "Name is required";
@@ -71,6 +76,7 @@ export const CreateBill = () => {
         dueDate: "",
         payLink: "",
         isRecurring: "",
+        recurringFrequency: '',
       });
       return true;
     } else {
@@ -86,6 +92,7 @@ export const CreateBill = () => {
       dueDate: new Date(),
       payLink: "",
       isRecurring: false,
+      recurringFrequency: RecurringFrequency.MONTHLY,
     },
     onSubmit: async (values: any) => {
       const errorFree = validateForm();
@@ -99,6 +106,7 @@ export const CreateBill = () => {
         category: values.category,
         payLink: values.payLink,
         isRecurring: Boolean(values.isRecurring),
+        recurringFrequency: values.recurringFrequency,
       };
       await dispatch(createBill(bill)).unwrap();
       toast.success("Bill created!");
@@ -198,7 +206,10 @@ export const CreateBill = () => {
               id="isRecurring"
               name="isRecurring"
               displayEmpty
-              onChange={formik.handleChange}
+              onChange={() => {
+                setIsRecurring(!isReccuring);
+                formik.setFieldValue("isRecurring", !isReccuring);
+              }}
               value={formik.values.isRecurring}
               label="Recurring"
             >
@@ -207,6 +218,26 @@ export const CreateBill = () => {
               <MenuItem value={"false"}>No</MenuItem>
             </Select>
           </InputSection>
+          {isReccuring === true && (
+            <InputSection>
+              <label htmlFor="recurringFrequency">Recurring Frequency</label>
+              <Select
+                id="recurringFrequency"
+                name="recurringFrequency"
+                displayEmpty
+                onChange={formik.handleChange}
+                value={formik.values.recurringFrequency}
+                label="Recurring Frequency"
+              >
+                <MenuItem value={RecurringFrequency.MONTHLY}>Monthly</MenuItem>
+                <MenuItem value={RecurringFrequency.WEEKLY}>Weekly</MenuItem>
+                <MenuItem value={RecurringFrequency.BIWEEKLY}>
+                  Bi-weekly
+                </MenuItem>
+                <MenuItem value={RecurringFrequency.ANNUALLY}>Yearly</MenuItem>
+              </Select>
+            </InputSection>
+          )}
           <SubmitButton type="submit">Submit</SubmitButton>
           {resError && <StyledError>{resError}</StyledError>}
         </Form>

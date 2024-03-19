@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -22,15 +22,15 @@ import styled from "@emotion/styled";
 import { AppDispatch } from "../../../store";
 import { CreatePayment } from "../../Payments/components/CreatePayment";
 import { DetailsDialog } from "./DetailsDialog/DetailsDialog";
+import { breakpoints } from "../../../common/styled";
 
 export const Bills = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  // Helper function to format date strings
-  const formatDate = (dateString: string | number | Date) => {
+  const windowSize = window.innerWidth;
+  const formatDate = (dateString: string | number | Date, windowSize: number) => {
     const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
+      year: windowSize < 768 ? '2-digit' : "numeric",
+      month: windowSize < 768 ? "numeric" : "long",
+      day: windowSize < 768 ? "numeric" : "2-digit",
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -139,9 +139,9 @@ export const Bills = () => {
                 ) => (
                   <TableRow key={index}>
                     <TableCell>{bill.name}</TableCell>
-                    <TableCell>{formatDate(bill.dueDate)}</TableCell>
+                    <DateCell>{formatDate(bill.dueDate, windowSize)}</DateCell>
                     <TableCell>{formatCurrency(bill.amount)}</TableCell>
-                    <TableCell sx={{ width: "200px" }}>
+                    <ActionsCell>
                       <Button
                         sx={{ padding: 0, minWidth: 40 }}
                         onClick={() => onEdit(bill)}
@@ -168,7 +168,7 @@ export const Bills = () => {
                       >
                         <InfoOutlined />
                       </Button>
-                    </TableCell>
+                    </ActionsCell>
                   </TableRow>
                 )
               )}
@@ -195,6 +195,20 @@ const StyledTableCell = muiStyled(TableCell)`
   font-weight: bold;
 `;
 
+const ActionsCell = styled(TableCell)`
+  width: 200px;
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 200px;
+  }
+`;
+
+const DateCell = styled(TableCell)`
+  width: 200px;
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 100px;
+  }
+`;
+
 const AddBillButton = styled.button`
   background-color: #3f51b5;
   color: white;
@@ -210,5 +224,8 @@ const AddBillButton = styled.button`
   width: 10%;
   &:hover {
     background-color: #2f3d9e;
+  }
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 50%;
   }
 `;

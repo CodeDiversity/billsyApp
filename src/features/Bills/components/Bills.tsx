@@ -23,6 +23,7 @@ import { AppDispatch } from "../../../store";
 import { CreatePayment } from "../../Payments/components/CreatePayment";
 import { DetailsDialog } from "./DetailsDialog/DetailsDialog";
 import { breakpoints } from "../../../common/styled";
+import { MobileActionCell } from "./MobileActionCell/MobileActionCell";
 
 export const Bills = () => {
   const windowSize = window.innerWidth;
@@ -142,32 +143,43 @@ export const Bills = () => {
                     <DateCell>{formatDate(bill.dueDate, windowSize)}</DateCell>
                     <TableCell>{formatCurrency(bill.amount)}</TableCell>
                     <ActionsCell>
-                      <Button
-                        sx={{ padding: 0, minWidth: 40 }}
-                        onClick={() => onEdit(bill)}
-                      >
-                        <Edit />
-                      </Button>
-                      <Button
-                        sx={{ padding: 0, minWidth: 40 }}
-                        onClick={() => onDelete(bill)}
-                      >
-                        <Delete />
-                      </Button>
-                      <Button
-                        sx={{ padding: 0, minWidth: 40 }}
-                        onClick={() => onPay(bill)}
-                      >
-                        <Payment />
-                      </Button>
-                      <Button
-                        sx={{ padding: 0, minWidth: 40 }}
-                        onClick={() => {
-                          onDetails(bill);
-                        }}
-                      >
-                        <InfoOutlined />
-                      </Button>
+                      <ActionsGroup>
+                        <Button
+                          sx={{ padding: 0, minWidth: 40 }}
+                          onClick={() => onEdit(bill)}
+                        >
+                          <Edit />
+                        </Button>
+                        <Button
+                          sx={{ padding: 0, minWidth: 40 }}
+                          onClick={() => onDelete(bill)}
+                        >
+                          <Delete />
+                        </Button>
+                        <Button
+                          sx={{ padding: 0, minWidth: 40 }}
+                          onClick={() => onPay(bill)}
+                        >
+                          <Payment />
+                        </Button>
+                        <Button
+                          sx={{ padding: 0, minWidth: 40 }}
+                          onClick={() => {
+                            onDetails(bill);
+                          }}
+                        >
+                          <InfoOutlined />
+                        </Button>
+                      </ActionsGroup>
+                      <MobileActionGroup>
+                        <MobileActionCell
+                          bill={bill}
+                          onEdit={onEdit}
+                          onDelete={onDelete}
+                          onPay={onPay}
+                          onDetails={onDetails}
+                        />
+                      </MobileActionGroup>
                     </ActionsCell>
                   </TableRow>
                 )
@@ -191,19 +203,35 @@ export const Bills = () => {
   );
 };
 
+const MobileActionGroup = styled.div`
+  display: none;
+  @media (max-width: ${breakpoints.tablet}) {
+    display: flex;
+    justify-content: space-around;
+    width: 50px;
+  }
+`;
+
+const ActionsGroup = styled.span`
+  display: flex;
+  justify-content: space-between;
+  @media (max-width: ${breakpoints.tablet}) {
+    display: none;
+  }
+`;
+
 const StyledTableCell = muiStyled(TableCell)`
   font-weight: bold;
 `;
 
 const ActionsCell = styled(TableCell)`
-  width: 200px;
+  width: 150px;
   @media (max-width: ${breakpoints.tablet}) {
     width: 200px;
   }
 `;
 
 const DateCell = styled(TableCell)`
-  width: 200px;
   @media (max-width: ${breakpoints.tablet}) {
     width: 100px;
   }

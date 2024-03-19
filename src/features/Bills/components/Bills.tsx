@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
@@ -11,15 +11,14 @@ import {
   TablePagination,
   styled as muiStyled,
 } from "@mui/material";
-import { Edit, Delete, Payment,InfoOutlined } from "@mui/icons-material";
-import { useDispatch, useSelector } from "react-redux";
+import { Edit, Delete, Payment, InfoOutlined } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 import { selectUserBills } from "../slices/billSlice";
 import { LoggedInLayout } from "../../../common/Layouts/LoggedInLayout";
 import { DeleteDialog } from "./DeleteDialog/DeleteDialog";
 import { Bill } from "../types/Bill";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
-import { AppDispatch } from "../../../store";
 import { CreatePayment } from "../../Payments/components/CreatePayment";
 import { DetailsDialog } from "./DetailsDialog/DetailsDialog";
 import { breakpoints } from "../../../common/styled";
@@ -27,9 +26,12 @@ import { MobileActionCell } from "./MobileActionCell/MobileActionCell";
 
 export const Bills = () => {
   const windowSize = window.innerWidth;
-  const formatDate = (dateString: string | number | Date, windowSize: number) => {
+  const formatDate = (
+    dateString: string | number | Date,
+    windowSize: number
+  ) => {
     const options: Intl.DateTimeFormatOptions = {
-      year: windowSize < 768 ? '2-digit' : "numeric",
+      year: windowSize < 768 ? "2-digit" : "numeric",
       month: windowSize < 768 ? "numeric" : "long",
       day: windowSize < 768 ? "numeric" : "2-digit",
     };
@@ -80,7 +82,7 @@ export const Bills = () => {
   const onDetails = (bill: any) => {
     setBill(bill);
     setOpenDetails(true);
-  }
+  };
 
   const onPay = (bill: any) => {
     setBill(bill);
@@ -122,17 +124,17 @@ export const Bills = () => {
                 (
                   bill: {
                     name:
-                      | string
-                      | number
-                      | boolean
-                      | React.ReactElement<
-                          any,
-                          string | React.JSXElementConstructor<any>
-                        >
-                      | Iterable<React.ReactNode>
-                      | React.ReactPortal
-                      | null
-                      | undefined;
+                    | string
+                    | number
+                    | boolean
+                    | React.ReactElement<
+                      any,
+                      string | React.JSXElementConstructor<any>
+                    >
+                    | Iterable<React.ReactNode>
+                    | React.ReactPortal
+                    | null
+                    | undefined;
                     dueDate: any;
                     amount: any;
                   },

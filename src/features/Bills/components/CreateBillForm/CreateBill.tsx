@@ -14,6 +14,7 @@ import { AppDispatch } from "../../../../store";
 import { Bill } from "../../types/Bill";
 import { toast } from "react-toastify";
 import { RecurringFrequency } from '../../types/RecurringFrequency';
+import { breakpoints } from "../../../../common/styled";
 
 interface FormValues {
   name: string;
@@ -251,6 +252,10 @@ const Wrapper = styled.section`
   height: 100vh;
   flex-direction: column;
   align-items: flex-start;
+  @media (max-width: ${breakpoints.tablet}) {
+    align-items: center;
+  }
+
 `;
 
 const Form = styled.form`
@@ -260,6 +265,9 @@ const Form = styled.form`
   width: 40%;
   padding: 2rem;
   border-radius: 4px;
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 100%;
+  }
 `;
 
 const Header = styled.h1`
@@ -267,6 +275,10 @@ const Header = styled.h1`
   font-size: 2.5rem;
   margin-bottom: 1rem;
   margin-left: 2.5%;
+  @media (max-width: ${breakpoints.tablet}) {
+    margin-left: 0;
+    margin-bottom: .5rem;
+  }
 `;
 
 const InputSection = styled.div`

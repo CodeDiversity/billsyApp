@@ -59,5 +59,6 @@ const MainContainer = styled.div`
   overflow: hidden;
   @media (max-width: ${breakpoints.tablet}) {
     flex-direction: column;
+    height: 100%;
   }
 `;

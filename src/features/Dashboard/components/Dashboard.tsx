@@ -6,6 +6,7 @@ import { selectCurrentUser } from "../../Authentication/slices/userSlice";
 import { selectUserBills } from "../../Bills/slices/billSlice";
 import { useNavigate } from "react-router-dom";
 import { UpcomingBills } from "../../Bills/components/UpcomingBills/UpcomingBills";
+import { breakpoints } from "../../../common/styled";
 
 type Props = {};
 
@@ -32,12 +33,18 @@ const JustifyCenter = styled.div`
   display: flex;
   justify-content: center;
   width: 50%;
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 100%;
+  }
 `;
 
 const Container = styled.div`
   width: 100%;
   margin-top: 20px;
   overflow: auto;
+  @media (max-width: ${breakpoints.tablet}) {
+    margin-top: 0;
+  }
 `;
 
 const WelcomeBackText = styled.h2`

@@ -8,6 +8,7 @@ import { updateUser } from "../../Authentication/thunks/userThunks";
 import { AppDispatch } from "../../../store";
 import { SettingsUser } from "../../Authentication/types/userTypes";
 import { toast } from "react-toastify";
+import { breakpoints } from "../../../common/styled";
 
 export default function Settings() {
   const user = useSelector(selectCurrentUser) as SettingsUser
@@ -99,13 +100,6 @@ export default function Settings() {
   );
 }
 
-const Wrapper = styled.section`
-  display: flex;
-  height: 100vh;
-  flex-direction: column;
-  align-items: flex-start;
-`;
-
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -113,12 +107,18 @@ const Form = styled.form`
   width: 40%;
   padding: 2rem;
   border-radius: 4px;
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 75%;
+  }
 `;
 
 const Header = styled.h1`
   font-size: 2.5rem;
   margin-bottom: 1rem;
   margin-left: 2%;
+  @media (max-width: ${breakpoints.tablet}) {
+    margin-left: 0;
+  }
 `;
 
 const InputSection = styled.div`

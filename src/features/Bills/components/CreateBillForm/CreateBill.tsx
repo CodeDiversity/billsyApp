@@ -44,7 +44,7 @@ export const CreateBill = () => {
   });
   const validateForm = () => {
     let error = false;
-    let errors = {
+    const errors = {
       name: "",
       amount: "",
       category: "",

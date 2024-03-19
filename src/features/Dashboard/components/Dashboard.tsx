@@ -3,7 +3,6 @@ import React from "react";
 import { LoggedInLayout } from "../../../common/Layouts/LoggedInLayout";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../Authentication/slices/userSlice";
-import { selectUserBills } from "../../Bills/slices/billSlice";
 import { useNavigate } from "react-router-dom";
 import { UpcomingBills } from "../../Bills/components/UpcomingBills/UpcomingBills";
 import { breakpoints } from "../../../common/styled";

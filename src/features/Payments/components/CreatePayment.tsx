@@ -1,6 +1,5 @@
 import { Dialog } from "@mui/material";
 import { Bill } from "../../Bills/types/Bill";
-import { Delete } from "@mui/icons-material";
 import { useFormik } from "formik";
 import styled from "@emotion/styled";
 import { DatePicker } from "@mui/x-date-pickers";

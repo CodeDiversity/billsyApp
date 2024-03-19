@@ -60,7 +60,7 @@ export const EditBill = () => {
   });
   const validateForm = () => {
     let error = false;
-    let errors = {
+    const errors = {
       name: "",
       amount: "",
       category: "",

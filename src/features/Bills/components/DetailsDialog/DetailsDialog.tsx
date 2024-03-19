@@ -4,7 +4,6 @@ import { Bill } from "../../types/Bill";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { Payment } from "../../../Payments/types/index";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 
 interface CreatePaymentProps {
   open: boolean;
@@ -72,7 +71,7 @@ export const DetailsDialog = ({ open, setOpen, bill }: CreatePaymentProps) => {
                   >
                     <PaymentDetailsFont>
                       <BoldSpan>Date Paid: </BoldSpan>
-                      {payment.date as String}
+                      {payment.date as string}
                     </PaymentDetailsFont>
                     <PaymentDetailsFont>
                       <BoldSpan> Amount: </BoldSpan>${payment.amount}

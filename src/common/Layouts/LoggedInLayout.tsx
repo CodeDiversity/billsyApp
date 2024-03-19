@@ -45,9 +45,9 @@ const RightSide = styled.div`
   padding: 20px;
   margin-top: 10px;
   @media (max-width: ${breakpoints.tablet}) {
-    width: 100%;
     padding: 10px;
     align-items: center;
+    width: 100%;
   }
 `;
 

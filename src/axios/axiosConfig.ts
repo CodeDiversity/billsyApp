@@ -9,7 +9,7 @@ const client = axios.create({
 });
 
 client.interceptors.request.use(
-  //@ts-ignore
+  //@ts-expect-error - The config parameter is not used in this function
   (config: AxiosRequestConfig) => {
     const token = localStorage.getItem("token");
     if (token) {

@@ -18,17 +18,16 @@ interface CreatePaymentProps {
 
 export const CreatePayment = ({ open, setOpen, bill }: CreatePaymentProps) => {
   // useform with amount, confirmationNumber and note
-  const initialValues =  useMemo(() => {
+  const initialValues = useMemo(() => {
     const date = new Date(bill.dueDate)
     return {
       amount: bill.amount,
       confirmationNumber: "",
       note: "",
-      date: date as Date,
+      date: date ,
     }
   }, [bill])
   const dispatch = useAppDispatch();
-  const date = new Date(bill.dueDate)
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -120,11 +119,6 @@ const Header = styled.h2`
   margin-left: 2%;
 `;
 
-const InputSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-`;
 
 const Input = styled.input`
   padding: 16px;
@@ -149,8 +143,4 @@ const SubmitButton = styled.button`
   }
 `;
 
-const StyledError = styled.div`
-  color: red;
-  font-size: 0.875rem;
-  font-weight: 800;
-`;
+

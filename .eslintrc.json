@@ -5,7 +5,13 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["unused-imports", "@typescript-eslint", "@typescript-eslint/eslint-plugin"],
+  "plugins": [
+    "unused-imports",
+    "@typescript-eslint",
+    "@typescript-eslint/eslint-plugin",
+    "react-hooks",
+    "prettier"
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -18,7 +24,6 @@
       "warn",
       {
         "vars": "all",
-        "varsIgnorePattern": "^_",
         "args": "after-used",
         "argsIgnorePattern": "^_"
       }

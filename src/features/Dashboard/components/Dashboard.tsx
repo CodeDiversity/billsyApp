@@ -7,9 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { UpcomingBills } from "../../Bills/components/UpcomingBills/UpcomingBills";
 import { breakpoints } from "../../../common/styled";
 
-type Props = {};
 
-export const Dashboard = (props: Props) => {
+export const Dashboard = () => {
   const currentUser = useSelector(selectCurrentUser);
   const firstName = currentUser?.fullName?.split(" ")[0];
   const navigate = useNavigate();

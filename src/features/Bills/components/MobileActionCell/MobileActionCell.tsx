@@ -5,7 +5,6 @@ import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Bill } from "../../types/Bill";
 
-const ITEM_HEIGHT = 48;
 
 interface MobileActionCellProps {
   onEdit: (bill: Bill) => void;
@@ -23,9 +22,9 @@ export const MobileActionCell = ({
   bill,
 }: MobileActionCellProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  
+
   const open = Boolean(anchorEl);
-  
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -52,7 +51,7 @@ export const MobileActionCell = ({
         onClose={handleClose}
       >
         <MenuItem key={'edit'} onClick={() => onEdit(bill)}>
-            Edit
+          Edit
         </MenuItem>
         <MenuItem key={'delete'} onClick={() => onDelete(bill)}>
           Delete
@@ -63,39 +62,7 @@ export const MobileActionCell = ({
         <MenuItem key={'details'} onClick={() => onDetails(bill)}>
           Details
         </MenuItem>
-        </Menu>
+      </Menu>
     </div>
   );
 }
-
-/*
-
-    <ActionsCell>
-                      <Button
-                        sx={{ padding: 0, minWidth: 40 }}
-                        onClick={() => onEdit(bill)}
-                      >
-                        <Edit />
-                      </Button>
-                      <Button
-                        sx={{ padding: 0, minWidth: 40 }}
-                        onClick={() => onDelete(bill)}
-                      >
-                        <Delete />
-                      </Button>
-                      <Button
-                        sx={{ padding: 0, minWidth: 40 }}
-                        onClick={() => onPay(bill)}
-                      >
-                        <Payment />
-                      </Button>
-                      <Button
-                        sx={{ padding: 0, minWidth: 40 }}
-                        onClick={() => {
-                          onDetails(bill);
-                        }}
-                      >
-                        <InfoOutlined />
-                      </Button>
-                    </ActionsCell>
-*/

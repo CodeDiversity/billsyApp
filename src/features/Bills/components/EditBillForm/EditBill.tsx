@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { LoggedInLayout } from "../../../../common/Layouts/LoggedInLayout";
 import styled from "@emotion/styled";
 import { useFormik } from "formik";
@@ -35,7 +35,7 @@ export const EditBill = () => {
 
   const bills: Bill[] = useSelector(selectUserBills);
   const navigate = useNavigate();
-  const [resError, setResError] = useState("");
+  const resError = useMemo(() => "", []);
   const dispatch = useDispatch<AppDispatch>();
   const [isReccuring, setIsRecurring] = useState(false);
 

@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import { LeftNav } from "../../features/Dashboard/components/LeftNav/LeftNav";
 import { NavBar } from "../NavBar/components/NavBar";
 import styled from "@emotion/styled";
+import { breakpoints } from "../styled";
 
 interface LayoutProps {
   children: ReactNode; // Use ReactNode for accepting any type of children
@@ -29,6 +30,12 @@ const LeftSide = styled.div`
   padding-top: 40px;
   justify-content: center;
   padding: 20px;
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 100%;
+    justify-content: center;
+    height: 75px;
+    padding: 10px;
+  }
 `;
 
 const RightSide = styled.div`
@@ -37,6 +44,11 @@ const RightSide = styled.div`
   width: 75.7%;
   padding: 20px;
   margin-top: 10px;
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 100%;
+    padding: 10px;
+    align-items: center;
+  }
 `;
 
 const MainContainer = styled.div`
@@ -45,4 +57,7 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: row;
   overflow: hidden;
+  @media (max-width: ${breakpoints.tablet}) {
+    flex-direction: column;
+  }
 `;

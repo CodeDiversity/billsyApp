@@ -9,8 +9,44 @@ export const UpcomingBills = () => {
   const upcomingBills = bills.filter((b) => {
     return new Date(b.dueDate) > new Date();
   }).slice(0, 5);
+
+  const pastDue = bills.filter((b) => {
+    return new Date(b.dueDate) < new Date();
+  }
+  );
   return (
     <>
+
+      {pastDue.length > 0 && (
+        <>
+          <StyledHeader>
+            Past Due Bills
+          </StyledHeader>
+          <div>
+            {pastDue?.map((b) => {
+              return (
+                <StyledBill key={b.name}>
+                  <div>
+                    <StyledParagraphBold>{b.name}</StyledParagraphBold>
+                    <StyledParagraphRed>
+                      Due on{" "}
+                      {new Date(b.dueDate).toLocaleDateString("en-us", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </StyledParagraphRed>
+                    <StyledParagraph>{b.category}</StyledParagraph>
+                  </div>
+                  <StyledParagraph>${b.amount.toLocaleString()}</StyledParagraph>
+                </StyledBill>
+              );
+            })}
+          </div>
+        </>
+      )}
+
       <StyledHeader>Upcoming Bills</StyledHeader>
       <div>
         {upcomingBills?.map((b) => {
@@ -64,9 +100,26 @@ const StyledParagraphBold = styled(StyledParagraph)`
   font-size: 1.2rem;
 `;
 
+const StyledParagraphBoldRed = styled(StyledParagraphBold)`
+  color: red;
+`;
+
+const StyledParagraphRed = styled(StyledParagraph)`
+  color: red;
+`;
+
+
 const StyledHeader = styled.h2`
   font-size: 2.2rem;
   font-weight: bold;
   margin-top: 20px;
   margin-bottom: 20px;
+`;
+
+const PastDueHeader = styled.h2`
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: red;
 `;

@@ -45,30 +45,34 @@ export const UpcomingBills = () => {
           </div>
         </>
       )}
+      {upcomingBills.length > 0 && (
+        <>
+          <StyledHeader>Upcoming Bills</StyledHeader>
+          <div>
+            {upcomingBills?.map((b) => {
+              return (
+                <StyledBill key={b.name}>
+                  <div>
+                    <StyledParagraphBold>{b.name}</StyledParagraphBold>
+                    <StyledParagraph>
+                      Due on{" "}
+                      {new Date(b.dueDate).toLocaleDateString("en-us", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </StyledParagraph>
+                    <StyledParagraph>{b.category}</StyledParagraph>
+                  </div>
+                  <StyledParagraph>${b.amount.toLocaleString()}</StyledParagraph>
+                </StyledBill>
+              );
+            })}
+          </div>
+        </>
+      )}
 
-      <StyledHeader>Upcoming Bills</StyledHeader>
-      <div>
-        {upcomingBills?.map((b) => {
-          return (
-            <StyledBill key={b.name}>
-              <div>
-                <StyledParagraphBold>{b.name}</StyledParagraphBold>
-                <StyledParagraph>
-                  Due on{" "}
-                  {new Date(b.dueDate).toLocaleDateString("en-us", {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </StyledParagraph>
-                <StyledParagraph>{b.category}</StyledParagraph>
-              </div>
-              <StyledParagraph>${b.amount.toLocaleString()}</StyledParagraph>
-            </StyledBill>
-          );
-        })}
-      </div>
     </>
   );
 };

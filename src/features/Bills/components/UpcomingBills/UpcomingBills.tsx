@@ -16,7 +16,6 @@ export const UpcomingBills = () => {
   );
   return (
     <>
-
       {pastDue.length > 0 && (
         <>
           <StyledHeader>
@@ -100,9 +99,6 @@ const StyledParagraphBold = styled(StyledParagraph)`
   font-size: 1.2rem;
 `;
 
-const StyledParagraphBoldRed = styled(StyledParagraphBold)`
-  color: red;
-`;
 
 const StyledParagraphRed = styled(StyledParagraph)`
   color: red;
@@ -116,10 +112,4 @@ const StyledHeader = styled.h2`
   margin-bottom: 20px;
 `;
 
-const PastDueHeader = styled.h2`
-  font-size: 2.2rem;
-  font-weight: bold;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  color: red;
-`;
+

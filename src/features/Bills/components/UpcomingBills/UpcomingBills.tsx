@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { selectUserBills } from "../../slices/billSlice";
 import { Bill } from "../../types/Bill";
 import styled from "@emotion/styled";
+import { breakpoints } from "../../../../common/styled";
 
 export const UpcomingBills = () => {
   const bills: Bill[] = useSelector(selectUserBills);
@@ -46,6 +47,10 @@ const StyledBill = styled.div`
   margin-bottom: 10px;
   &:last-child {
     border-bottom: none;
+  }
+  @media (max-width: ${breakpoints.tablet}) {
+    flex-direction: column;
+    width: 100%;
   }
 `;
 

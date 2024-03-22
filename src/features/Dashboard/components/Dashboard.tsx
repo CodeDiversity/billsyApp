@@ -3,13 +3,13 @@ import React from "react";
 import { LoggedInLayout } from "../../../common/Layouts/LoggedInLayout";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../Authentication/slices/userSlice";
-import { selectUserBills } from "../../Bills/slices/billSlice";
 import { useNavigate } from "react-router-dom";
 import { UpcomingBills } from "../../Bills/components/UpcomingBills/UpcomingBills";
+import { breakpoints } from "../../../common/styled";
+import { Fab } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 
-type Props = {};
-
-export const Dashboard = (props: Props) => {
+export const Dashboard = () => {
   const currentUser = useSelector(selectCurrentUser);
   const firstName = currentUser?.fullName?.split(" ")[0];
   const navigate = useNavigate();
@@ -19,9 +19,9 @@ export const Dashboard = (props: Props) => {
         <WelcomeBackText>Welcome back, {firstName}</WelcomeBackText>
         <UpcomingBills />
         <JustifyCenter>
-          <AddBillButton onClick={() => navigate("/new")}>
-            Add Bill
-          </AddBillButton>
+          <Fab color="primary" aria-label="add">
+            <AddIcon onClick={() => navigate('/new')} />
+          </Fab>
         </JustifyCenter>
       </Container>
     </LoggedInLayout>
@@ -30,14 +30,20 @@ export const Dashboard = (props: Props) => {
 
 const JustifyCenter = styled.div`
   display: flex;
-  justify-content: center;
-  width: 50%;
+  justify-content: flex-end;
+  width: 95%;
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 95%;
+  }
 `;
 
 const Container = styled.div`
   width: 100%;
   margin-top: 20px;
   overflow: auto;
+  @media (max-width: ${breakpoints.tablet}) {
+    margin-top: 0;
+  }
 `;
 
 const WelcomeBackText = styled.h2`

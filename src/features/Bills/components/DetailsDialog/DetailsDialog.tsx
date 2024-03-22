@@ -4,7 +4,6 @@ import { Bill } from "../../types/Bill";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { Payment } from "../../../Payments/types/index";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 
 interface CreatePaymentProps {
   open: boolean;
@@ -15,7 +14,6 @@ interface CreatePaymentProps {
 export const DetailsDialog = ({ open, setOpen, bill }: CreatePaymentProps) => {
   const transformedDate = new Date(bill.dueDate).toLocaleDateString();
   const transFormedPayments = bill.payments?.map((payment) => {
-    console.log(payment, "payment");
     return {
       ...payment,
       date: new Date(payment.date).toLocaleDateString(),
@@ -62,7 +60,6 @@ export const DetailsDialog = ({ open, setOpen, bill }: CreatePaymentProps) => {
             </PaymentDetailsFontBold>
             <PaymentsDiv>
               {transFormedPayments?.map((payment: Payment) => {
-                console.log(payment.amount, "payment");
                 return (
                   <Card
                     key={payment.id}
@@ -74,7 +71,7 @@ export const DetailsDialog = ({ open, setOpen, bill }: CreatePaymentProps) => {
                   >
                     <PaymentDetailsFont>
                       <BoldSpan>Date Paid: </BoldSpan>
-                      {payment.date as String}
+                      {payment.date as string}
                     </PaymentDetailsFont>
                     <PaymentDetailsFont>
                       <BoldSpan> Amount: </BoldSpan>${payment.amount}
@@ -85,7 +82,7 @@ export const DetailsDialog = ({ open, setOpen, bill }: CreatePaymentProps) => {
                     </PaymentDetailsFont>
 
                     <PaymentDetailsFont>
-                      Note: {payment.note}
+                      <BoldSpan>Note:</BoldSpan> {payment.note}
                     </PaymentDetailsFont>
                   </Card>
                 );

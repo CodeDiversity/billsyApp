@@ -10,6 +10,7 @@ import { LoggedOutLayout } from "../../common/Layouts/LoggedOutLayout";
 import StayOrganized from "../../images/organize.webp";
 import LateFee from "../../images/lateFee.webp";
 import { sharedCardStyles, sharedFontStyles, sharedHeaderStyles, sharedSectionStyles } from "./styles/sharedStyles";
+import { breakpoints } from "../../common/styled";
 
 
 export const MarketingPage = () => {
@@ -88,6 +89,9 @@ const CTASection = styled.div`
 const CTAHeader = styled.h1`
   ${sharedHeaderStyles}
   font-size: 3rem;
+  @media (max-width: ${breakpoints.tablet}) {
+    font-size: 2rem;
+  }
 `;
 
 const CTAButton = styled.button`
@@ -106,10 +110,22 @@ const CTAButton = styled.button`
   &:hover {
     background-color: #4397b9;
   }
+
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 75%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const Card = styled.div`
   ${sharedCardStyles}
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 100%;
+    margin-top: 1rem;
+  }
 `;
 
 const CardHeader = styled.h2`
@@ -124,6 +140,9 @@ const CardFont = styled.p`
 
 const MiddleSection = styled.div`
   ${sharedSectionStyles}
+  @media (max-width: ${breakpoints.tablet}) {
+    display: none;
+  }
 `;
 
 const WhyUseHeader = styled.h2`
@@ -141,12 +160,19 @@ const LowerSection = styled.div`
   flex-direction: row;
   justify-content: space-between;
   padding-bottom: 2.5rem;
+  @media (max-width: ${breakpoints.tablet}) {
+    flex-direction: column;
+  }
 `;
 
 const ThirdsImage = styled.img`
   width: 100%;
   height: 250px;
   margin-bottom: 20px;
+  @media (max-width: ${breakpoints.tablet}) {
+    height: 200px;
+  
+  }
 `;
 
 const HeroSection = styled.div`
@@ -158,6 +184,11 @@ const HeroSection = styled.div`
   background-color: #f0f0f0;
   height: 500px;
   margin-top: 2rem;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 100%;
+    flex-direction: column;
+  }
 `;
 
 const LeftSideHero = styled.div`
@@ -169,6 +200,10 @@ const LeftSideHero = styled.div`
   background-color: rgba(35, 111, 141);
   max-height: 700px;
   height: 100%;
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 100%;
+    padding: 2rem;
+  }
 `;
 
 const HeroImage = styled.img`
@@ -177,6 +212,9 @@ const HeroImage = styled.img`
   max-height: 700px;
   margin: 0 auto;
   height: 100%;
+  @media (max-width: ${breakpoints.tablet}) {
+    display: none;
+  }
 `;
 
 const HeroHeader = styled.h1`

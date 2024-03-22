@@ -2,7 +2,7 @@
 // src/features/user/userSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../../store";
-import { rehydrateAuthState, updateUser } from '../thunks/userThunks';
+import { rehydrateAuthState } from '../thunks/userThunks';
 import { SettingsUser, User } from "../types/userTypes";
 import { createSelector } from "reselect";
 

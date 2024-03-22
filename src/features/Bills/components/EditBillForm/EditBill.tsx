@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { LoggedInLayout } from "../../../../common/Layouts/LoggedInLayout";
 import styled from "@emotion/styled";
 import { useFormik } from "formik";
@@ -14,6 +14,8 @@ import { AppDispatch } from "../../../../store";
 import { Bill } from "../../types/Bill";
 import { selectUserBills } from "../../slices/billSlice";
 import { toast } from "react-toastify";
+import { RecurringFrequency } from '../../types/RecurringFrequency';
+import { breakpoints } from "../../../../common/styled";
 
 interface FormValues {
   name: string;
@@ -22,6 +24,7 @@ interface FormValues {
   dueDate: Date | string;
   payLink?: string;
   isRecurring?: boolean;
+  recurringFrequency?: RecurringFrequency;
 }
 
 export const EditBill = () => {
@@ -29,20 +32,21 @@ export const EditBill = () => {
   const [bill, setBill] = useState<Bill | undefined>();
   const params = useParams();
   const billId = params.id;
-  console.log(billId);
-  console.log(bill, "bill from state");
 
   const bills: Bill[] = useSelector(selectUserBills);
-  console.log(bills);
   const navigate = useNavigate();
-  const [resError, setResError] = useState("");
+  const resError = useMemo(() => "", []);
   const dispatch = useDispatch<AppDispatch>();
+  const [isReccuring, setIsRecurring] = useState(false);
 
   useEffect(() => {
     const bill = bills.find((bill) => bill._id === billId);
     setBill(bill);
     if (!bill) {
       navigate("/");
+    }
+    if(bill?.isRecurring){
+      setIsRecurring(true);
     }
   }, [bill, billId, bills, navigate]);
   const [formErrors, setFormErrors] = useState({
@@ -52,16 +56,18 @@ export const EditBill = () => {
     dueDate: "",
     payLink: "",
     isRecurring: "",
+    recurringFrequency: "",
   });
   const validateForm = () => {
     let error = false;
-    let errors = {
+    const errors = {
       name: "",
       amount: "",
       category: "",
       dueDate: "",
       payLink: "",
       isRecurring: "",
+      recurringFrequency: "",
     };
     if (!formik.values.name) {
       errors.name = "Name is required";
@@ -87,6 +93,7 @@ export const EditBill = () => {
         dueDate: "",
         payLink: "",
         isRecurring: "",
+        recurringFrequency: "",
       });
       return true;
     } else {
@@ -101,6 +108,7 @@ export const EditBill = () => {
       category: "",
       dueDate: new Date(),
       isRecurring: false,
+      recurringFrequency: RecurringFrequency.MONTHLY,
     },
     onSubmit: async (values: any) => {
       const errorFree = validateForm();
@@ -211,7 +219,10 @@ export const EditBill = () => {
               id="isRecurring"
               name="isRecurring"
               displayEmpty
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                formik.handleChange(e);
+                setIsRecurring(e.target.value === "true");
+              }}
               value={formik.values.isRecurring}
               label="Recurring"
             >
@@ -220,6 +231,26 @@ export const EditBill = () => {
               <MenuItem value={"false"}>No</MenuItem>
             </Select>
           </InputSection>
+          {isReccuring === true && (
+            <InputSection>
+              <label htmlFor="recurringFrequency">Recurring Frequency</label>
+              <Select
+                id="recurringFrequency"
+                name="recurringFrequency"
+                displayEmpty
+                onChange={formik.handleChange}
+                value={formik.values.recurringFrequency}
+                label="Recurring Frequency"
+              >
+                <MenuItem value={RecurringFrequency.MONTHLY}>Monthly</MenuItem>
+                <MenuItem value={RecurringFrequency.WEEKLY}>Weekly</MenuItem>
+                <MenuItem value={RecurringFrequency.BIWEEKLY}>
+                  Bi-weekly
+                </MenuItem>
+                <MenuItem value={RecurringFrequency.ANNUALLY}>Yearly</MenuItem>
+              </Select>
+            </InputSection>
+          )}
           <SubmitButton type="submit">Submit</SubmitButton>
           {resError && <StyledError>{resError}</StyledError>}
         </Form>
@@ -233,6 +264,10 @@ const Wrapper = styled.section`
   height: 100vh;
   flex-direction: column;
   align-items: flex-start;
+  @media (max-width: ${breakpoints.tablet}) {
+    align-items: center;
+  
+  }
 `;
 
 const Form = styled.form`
@@ -242,6 +277,10 @@ const Form = styled.form`
   width: 40%;
   padding: 2rem;
   border-radius: 4px;
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 100%;
+    padding: 0;
+  }
 `;
 
 const Header = styled.h1`
@@ -249,6 +288,9 @@ const Header = styled.h1`
   font-size: 2.5rem;
   margin-bottom: 1rem;
   margin-left: 2%;
+  @media (max-width: ${breakpoints.tablet}) {
+    margin-left: 0;
+  }
 `;
 
 const InputSection = styled.div`
@@ -264,6 +306,9 @@ const Input = styled.input`
   width: 93%;
   margin-left: 5px;
   margin-top: 10px;
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 300px;
+  }
 `;
 
 const SubmitButton = styled.button`

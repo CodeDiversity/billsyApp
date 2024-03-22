@@ -24,7 +24,6 @@ export const DeleteDialog = ({ open, setOpen, bill }: DeleteDialogProps) => {
   };
 
   const handleDelete = () => {
-    console.log("Deleting bill", bill);
     if (bill?._id) {
       dispatch(deleteBillSoft(bill?._id)).unwrap();
     }

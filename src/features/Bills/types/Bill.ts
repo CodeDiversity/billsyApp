@@ -1,4 +1,5 @@
 import { Payment } from "../../Payments/types";
+import { RecurringFrequency } from "./RecurringFrequency";
 
 export interface Bill {
   _id?: string;
@@ -11,4 +12,5 @@ export interface Bill {
   payLink?: string;
   isRecurring?: boolean;
   payments?: Payment[];
+  recurringFrequency?: RecurringFrequency;
 }

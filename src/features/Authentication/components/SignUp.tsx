@@ -34,7 +34,6 @@ export const SignUp = () => {
       client
         .post("users", values)
         .then((response) => {
-          console.log(response);
           navigate("/");
         })
         .catch((error) => {

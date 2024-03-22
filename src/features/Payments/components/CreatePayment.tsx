@@ -1,6 +1,5 @@
 import { Dialog } from "@mui/material";
 import { Bill } from "../../Bills/types/Bill";
-import { Delete } from "@mui/icons-material";
 import { useFormik } from "formik";
 import styled from "@emotion/styled";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -19,18 +18,16 @@ interface CreatePaymentProps {
 
 export const CreatePayment = ({ open, setOpen, bill }: CreatePaymentProps) => {
   // useform with amount, confirmationNumber and note
-  const initialValues =  useMemo(() => {
+  const initialValues = useMemo(() => {
     const date = new Date(bill.dueDate)
     return {
       amount: bill.amount,
       confirmationNumber: "",
       note: "",
-      date: date as Date,
+      date: date ,
     }
   }, [bill])
-  console.log(bill, "bill from create payment");
   const dispatch = useAppDispatch();
-  const date = new Date(bill.dueDate)
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -122,11 +119,6 @@ const Header = styled.h2`
   margin-left: 2%;
 `;
 
-const InputSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-`;
 
 const Input = styled.input`
   padding: 16px;
@@ -151,8 +143,4 @@ const SubmitButton = styled.button`
   }
 `;
 
-const StyledError = styled.div`
-  color: red;
-  font-size: 0.875rem;
-  font-weight: 800;
-`;
+

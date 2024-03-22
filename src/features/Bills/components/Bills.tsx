@@ -10,27 +10,32 @@ import {
   Button,
   TablePagination,
   styled as muiStyled,
+  Fab,
 } from "@mui/material";
-import { Edit, Delete, Payment,InfoOutlined } from "@mui/icons-material";
-import { useDispatch, useSelector } from "react-redux";
+import { Edit, Delete, Payment, InfoOutlined } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 import { selectUserBills } from "../slices/billSlice";
 import { LoggedInLayout } from "../../../common/Layouts/LoggedInLayout";
 import { DeleteDialog } from "./DeleteDialog/DeleteDialog";
 import { Bill } from "../types/Bill";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
-import { AppDispatch } from "../../../store";
 import { CreatePayment } from "../../Payments/components/CreatePayment";
 import { DetailsDialog } from "./DetailsDialog/DetailsDialog";
+import { breakpoints } from "../../../common/styled";
+import { MobileActionCell } from "./MobileActionCell/MobileActionCell";
+import AddIcon from "@mui/icons-material/Add";
 
 export const Bills = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  // Helper function to format date strings
-  const formatDate = (dateString: string | number | Date) => {
+  const windowSize = window.innerWidth;
+  const formatDate = (
+    dateString: string | number | Date,
+    windowSize: number
+  ) => {
     const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
+      year: windowSize < 768 ? "2-digit" : "numeric",
+      month: windowSize < 768 ? "numeric" : "long",
+      day: windowSize < 768 ? "numeric" : "2-digit",
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -79,7 +84,7 @@ export const Bills = () => {
   const onDetails = (bill: any) => {
     setBill(bill);
     setOpenDetails(true);
-  }
+  };
 
   const onPay = (bill: any) => {
     setBill(bill);
@@ -103,7 +108,6 @@ export const Bills = () => {
 
   return (
     <LoggedInLayout>
-      <AddBillButton onClick={() => navigate("/new")}>Add Bill</AddBillButton>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -121,17 +125,17 @@ export const Bills = () => {
                 (
                   bill: {
                     name:
-                      | string
-                      | number
-                      | boolean
-                      | React.ReactElement<
-                          any,
-                          string | React.JSXElementConstructor<any>
-                        >
-                      | Iterable<React.ReactNode>
-                      | React.ReactPortal
-                      | null
-                      | undefined;
+                    | string
+                    | number
+                    | boolean
+                    | React.ReactElement<
+                      any,
+                      string | React.JSXElementConstructor<any>
+                    >
+                    | Iterable<React.ReactNode>
+                    | React.ReactPortal
+                    | null
+                    | undefined;
                     dueDate: any;
                     amount: any;
                   },
@@ -139,41 +143,58 @@ export const Bills = () => {
                 ) => (
                   <TableRow key={index}>
                     <TableCell>{bill.name}</TableCell>
-                    <TableCell>{formatDate(bill.dueDate)}</TableCell>
+                    <DateCell>{formatDate(bill.dueDate, windowSize)}</DateCell>
                     <TableCell>{formatCurrency(bill.amount)}</TableCell>
-                    <TableCell sx={{ width: "200px" }}>
-                      <Button
-                        sx={{ padding: 0, minWidth: 40 }}
-                        onClick={() => onEdit(bill)}
-                      >
-                        <Edit />
-                      </Button>
-                      <Button
-                        sx={{ padding: 0, minWidth: 40 }}
-                        onClick={() => onDelete(bill)}
-                      >
-                        <Delete />
-                      </Button>
-                      <Button
-                        sx={{ padding: 0, minWidth: 40 }}
-                        onClick={() => onPay(bill)}
-                      >
-                        <Payment />
-                      </Button>
-                      <Button
-                        sx={{ padding: 0, minWidth: 40 }}
-                        onClick={() => {
-                          onDetails(bill);
-                        }}
-                      >
-                        <InfoOutlined />
-                      </Button>
-                    </TableCell>
+                    <ActionsCell>
+                      <ActionsGroup>
+                        <Button
+                          sx={{ padding: 0, minWidth: 40 }}
+                          onClick={() => onEdit(bill)}
+                        >
+                          <Edit />
+                        </Button>
+                        <Button
+                          sx={{ padding: 0, minWidth: 40 }}
+                          onClick={() => onDelete(bill)}
+                        >
+                          <Delete />
+                        </Button>
+                        <Button
+                          sx={{ padding: 0, minWidth: 40 }}
+                          onClick={() => onPay(bill)}
+                        >
+                          <Payment />
+                        </Button>
+                        <Button
+                          sx={{ padding: 0, minWidth: 40 }}
+                          onClick={() => {
+                            onDetails(bill);
+                          }}
+                        >
+                          <InfoOutlined />
+                        </Button>
+                      </ActionsGroup>
+                      <MobileActionGroup>
+                        <MobileActionCell
+                          bill={bill}
+                          onEdit={onEdit}
+                          onDelete={onDelete}
+                          onPay={onPay}
+                          onDetails={onDetails}
+                        />
+                      </MobileActionGroup>
+                    </ActionsCell>
                   </TableRow>
                 )
               )}
           </TableBody>
+
         </Table>
+        <FlexEnd>
+          <Fab color="primary" aria-label="add">
+            <AddIcon onClick={() => navigate('/new')} />
+          </Fab>
+        </FlexEnd>
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 20, 50]}
@@ -191,24 +212,47 @@ export const Bills = () => {
   );
 };
 
+const MobileActionGroup = styled.div`
+  display: none;
+  @media (max-width: ${breakpoints.tablet}) {
+    display: flex;
+    justify-content: space-around;
+    width: 50px;
+  }
+`;
+
+const FlexEnd = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 95%;
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 95%;
+  }
+`;
+
+
+const ActionsGroup = styled.span`
+  display: flex;
+  justify-content: space-between;
+  @media (max-width: ${breakpoints.tablet}) {
+    display: none;
+  }
+`;
+
 const StyledTableCell = muiStyled(TableCell)`
   font-weight: bold;
 `;
 
-const AddBillButton = styled.button`
-  background-color: #3f51b5;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  font-size: 16px;
-  font-weight: bold;
-  transition: 0.3s;
-  width: 10%;
-  &:hover {
-    background-color: #2f3d9e;
+const ActionsCell = styled(TableCell)`
+  width: 150px;
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 200px;
   }
 `;
+
+const DateCell = styled(TableCell)`
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 100px;
+  }
+`;
+

@@ -6,6 +6,8 @@ import { selectCurrentUser } from "../../Authentication/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import { UpcomingBills } from "../../Bills/components/UpcomingBills/UpcomingBills";
 import { breakpoints } from "../../../common/styled";
+import { Fab } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 
 export const Dashboard = () => {
   const currentUser = useSelector(selectCurrentUser);
@@ -17,9 +19,9 @@ export const Dashboard = () => {
         <WelcomeBackText>Welcome back, {firstName}</WelcomeBackText>
         <UpcomingBills />
         <JustifyCenter>
-          <AddBillButton onClick={() => navigate("/new")}>
-            Add Bill
-          </AddBillButton>
+          <Fab color="primary" aria-label="add">
+            <AddIcon onClick={() => navigate('/new')} />
+          </Fab>
         </JustifyCenter>
       </Container>
     </LoggedInLayout>
@@ -28,10 +30,10 @@ export const Dashboard = () => {
 
 const JustifyCenter = styled.div`
   display: flex;
-  justify-content: center;
-  width: 50%;
+  justify-content: flex-end;
+  width: 95%;
   @media (max-width: ${breakpoints.tablet}) {
-    width: 100%;
+    width: 95%;
   }
 `;
 

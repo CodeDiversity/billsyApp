@@ -10,6 +10,7 @@ import {
   Button,
   TablePagination,
   styled as muiStyled,
+  Fab,
 } from "@mui/material";
 import { Edit, Delete, Payment, InfoOutlined } from "@mui/icons-material";
 import { useSelector } from "react-redux";
@@ -23,6 +24,7 @@ import { CreatePayment } from "../../Payments/components/CreatePayment";
 import { DetailsDialog } from "./DetailsDialog/DetailsDialog";
 import { breakpoints } from "../../../common/styled";
 import { MobileActionCell } from "./MobileActionCell/MobileActionCell";
+import AddIcon from "@mui/icons-material/Add";
 
 export const Bills = () => {
   const windowSize = window.innerWidth;
@@ -106,7 +108,6 @@ export const Bills = () => {
 
   return (
     <LoggedInLayout>
-      <AddBillButton onClick={() => navigate("/new")}>Add Bill</AddBillButton>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -187,7 +188,13 @@ export const Bills = () => {
                 )
               )}
           </TableBody>
+
         </Table>
+        <FlexEnd>
+          <Fab color="primary" aria-label="add">
+            <AddIcon onClick={() => navigate('/new')} />
+          </Fab>
+        </FlexEnd>
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 20, 50]}
@@ -214,6 +221,16 @@ const MobileActionGroup = styled.div`
   }
 `;
 
+const FlexEnd = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 95%;
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 95%;
+  }
+`;
+
+
 const ActionsGroup = styled.span`
   display: flex;
   justify-content: space-between;
@@ -239,23 +256,3 @@ const DateCell = styled(TableCell)`
   }
 `;
 
-const AddBillButton = styled.button`
-  background-color: #3f51b5;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  font-size: 16px;
-  font-weight: bold;
-  transition: 0.3s;
-  width: 10%;
-  &:hover {
-    background-color: #2f3d9e;
-  }
-  @media (max-width: ${breakpoints.tablet}) {
-    width: 50%;
-  }
-`;

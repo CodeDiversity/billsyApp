@@ -108,6 +108,7 @@ export const Bills = () => {
 
   return (
     <LoggedInLayout>
+    
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -190,11 +191,6 @@ export const Bills = () => {
           </TableBody>
 
         </Table>
-        <FlexEnd>
-          <Fab color="primary" aria-label="add">
-            <AddIcon onClick={() => navigate('/new')} />
-          </Fab>
-        </FlexEnd>
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 20, 50]}
@@ -208,6 +204,11 @@ export const Bills = () => {
       <DetailsDialog open={openDetails} bill={bill} setOpen={setOpenDetails} />
       <DeleteDialog open={openDelete} setOpen={setOpenDelete} bill={bill} />
       <CreatePayment open={openPayment} setOpen={setOpenPayment} bill={bill} />
+      <FlexEnd>
+        <Fab color="primary" aria-label="add">
+          <AddIcon onClick={() => navigate('/new')} />
+        </Fab>
+      </FlexEnd>
     </LoggedInLayout>
   );
 };
@@ -224,7 +225,7 @@ const MobileActionGroup = styled.div`
 const FlexEnd = styled.div`
   display: flex;
   justify-content: flex-end;
-  width: 95%;
+  width: 100%;
   @media (max-width: ${breakpoints.tablet}) {
     width: 95%;
   }

@@ -18,20 +18,20 @@ export const Dashboard = () => {
       <Container>
         <WelcomeBackText>Welcome back, {firstName}</WelcomeBackText>
         <UpcomingBills />
-        <JustifyCenter>
+        <FlexEnd>
           <Fab color="primary" aria-label="add">
             <AddIcon onClick={() => navigate('/new')} />
           </Fab>
-        </JustifyCenter>
+        </FlexEnd>
       </Container>
     </LoggedInLayout>
   );
 };
 
-const JustifyCenter = styled.div`
+const FlexEnd = styled.div`
   display: flex;
   justify-content: flex-end;
-  width: 95%;
+  width: 100%;
   @media (max-width: ${breakpoints.tablet}) {
     width: 95%;
   }
@@ -51,20 +51,4 @@ const WelcomeBackText = styled.h2`
   margin-bottom: 20px;
 `;
 
-const AddBillButton = styled.button`
-  background-color: #3f51b5;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  font-size: 16px;
-  font-weight: bold;
-  transition: 0.3s;
-  width: 40%;
-  &:hover {
-    background-color: #2f3d9e;
-  }
-`;
+

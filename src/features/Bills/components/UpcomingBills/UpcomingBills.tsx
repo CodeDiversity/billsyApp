@@ -72,7 +72,9 @@ export const UpcomingBills = () => {
           </div>
         </>
       )}
-
+      {upcomingBills.length === 0 && pastDue.length === 0 && (
+        <StyledHeader>No upcoming bills</StyledHeader>
+      )}
     </>
   );
 };

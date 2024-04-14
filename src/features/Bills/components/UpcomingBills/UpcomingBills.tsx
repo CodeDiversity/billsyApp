@@ -3,9 +3,11 @@ import { selectUserBills } from "../../slices/billSlice";
 import { Bill } from "../../types/Bill";
 import styled from "@emotion/styled";
 import { breakpoints } from "../../../../common/styled";
+import { useNavigate } from "react-router-dom";
 
 export const UpcomingBills = () => {
   const bills: Bill[] = useSelector(selectUserBills);
+  const navigate = useNavigate();
   const upcomingBills = bills.filter((b) => {
     return new Date(b.dueDate) > new Date();
   }).slice(0, 5);
@@ -14,6 +16,7 @@ export const UpcomingBills = () => {
     return new Date(b.dueDate) < new Date();
   }
   );
+
   return (
     <>
       {pastDue.length > 0 && (
@@ -24,7 +27,7 @@ export const UpcomingBills = () => {
           <div>
             {pastDue?.map((b) => {
               return (
-                <StyledBill key={b.name}>
+                <StyledBill onClick={() => navigate('/bills')} key={b.name}>
                   <div>
                     <StyledParagraphBold>{b.name}</StyledParagraphBold>
                     <StyledParagraphRed>
@@ -51,7 +54,7 @@ export const UpcomingBills = () => {
           <div>
             {upcomingBills?.map((b) => {
               return (
-                <StyledBill key={b.name}>
+                <StyledBill onClick={() => navigate('/bills')} key={b.name}>
                   <div>
                     <StyledParagraphBold>{b.name}</StyledParagraphBold>
                     <StyledParagraph>
@@ -86,6 +89,7 @@ const StyledBill = styled.div`
   padding: 10px;
   border-bottom: 1px solid #ccc;
   margin-bottom: 10px;
+  cursor: pointer;
   &:last-child {
     border-bottom: none;
   }

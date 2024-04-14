@@ -2,7 +2,7 @@ import { Payment } from "../../Payments/types";
 import { RecurringFrequency } from "./RecurringFrequency";
 
 export interface Bill {
-  _id?: string;
+  _id: string;
   name: string;
   amount: number;
   dueDate: string | Date;

@@ -100,7 +100,7 @@ export const CreateBill = () => {
       if (!errorFree) {
         return;
       }
-      const bill: Bill = {
+      const bill: Partial<Bill> = {
         name: values.name,
         amount: values.amount,
         dueDate: values.dueDate,

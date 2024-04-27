@@ -37,7 +37,7 @@ export const EditBill = () => {
   const navigate = useNavigate();
   const resError = useMemo(() => "", []);
   const dispatch = useDispatch<AppDispatch>();
-  const [isReccuring, setIsRecurring] = useState(false);
+  const [isRecurring, setIsRecurring] = useState(false);
 
   useEffect(() => {
     const bill = bills.find((bill) => bill._id === billId);
@@ -45,7 +45,7 @@ export const EditBill = () => {
     if (!bill) {
       navigate("/");
     }
-    if(bill?.isRecurring){
+    if (bill?.isRecurring){
       setIsRecurring(true);
     }
   }, [bill, billId, bills, navigate]);
@@ -231,7 +231,7 @@ export const EditBill = () => {
               <MenuItem value={"false"}>No</MenuItem>
             </Select>
           </InputSection>
-          {isReccuring === true && (
+          {isRecurring === true && (
             <InputSection>
               <label htmlFor="recurringFrequency">Recurring Frequency</label>
               <Select

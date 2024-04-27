@@ -9,23 +9,23 @@ export const UpcomingBills = () => {
   const bills: Bill[] = useSelector(selectUserBills);
   const navigate = useNavigate();
   const upcomingBills = bills.filter((b) => {
-    return new Date(b.dueDate) > new Date();
+    return new Date(b?.dueDate) > new Date();
   }).slice(0, 5);
 
-  const pastDue = bills.filter((b) => {
-    return new Date(b.dueDate) < new Date();
+  const pastDueBills = bills.filter((b) => {
+    return new Date(b?.dueDate) < new Date();
   }
   );
 
   return (
     <>
-      {pastDue.length > 0 && (
+      {pastDueBills.length > 0 && (
         <>
           <StyledHeader>
             Past Due Bills
           </StyledHeader>
           <div>
-            {pastDue?.map((b) => {
+            {pastDueBills?.map((b) => {
               return (
                 <StyledBill onClick={() => navigate('/bills')} key={b.name}>
                   <div>
@@ -75,7 +75,7 @@ export const UpcomingBills = () => {
           </div>
         </>
       )}
-      {upcomingBills.length === 0 && pastDue.length === 0 && (
+      {upcomingBills.length === 0 && pastDueBills.length === 0 && (
         <StyledHeader>No upcoming bills</StyledHeader>
       )}
     </>

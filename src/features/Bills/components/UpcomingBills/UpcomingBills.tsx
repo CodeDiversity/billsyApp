@@ -1,15 +1,11 @@
-import { useSelector } from "react-redux";
-import { selectUserBills } from "../../slices/billSlice";
-import { Bill } from "../../types/Bill";
 import styled from "@emotion/styled";
 import { breakpoints } from "../../../../common/styled";
 import { useNavigate } from "react-router-dom";
 import useUpcomingBills from "./hooks/useUpcomingBills";
 
 export const UpcomingBills = () => {
-  const bills: Bill[] = useSelector(selectUserBills);
   const navigate = useNavigate();
-  const { upcomingBills, pastDueBills } = useUpcomingBills(bills);
+  const { upcomingBills, pastDueBills } = useUpcomingBills();
 
   return (
     <>

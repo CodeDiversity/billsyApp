@@ -209,7 +209,7 @@ export const CreateBill = () => {
               displayEmpty
               onChange={() => {
                 setIsRecurring(!isRecurring);
-                formik.setFieldValue("isRecurring", !isRecuring);
+                formik.setFieldValue("isRecurring", !isRecurring);
               }}
               value={formik.values.isRecurring}
               label="Recurring"

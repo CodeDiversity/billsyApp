@@ -31,7 +31,7 @@ export const CreateBill = () => {
   //TODO style date to match the rest or remove MUI date picker.
   const navigate = useNavigate();
   const [resError, setResError] = useState("");
-  const [isReccuring, setIsRecurring] = useState(false);
+  const [isRecurring, setIsRecurring] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const [formErrors, setFormErrors] = useState({
     name: "",
@@ -208,8 +208,8 @@ export const CreateBill = () => {
               name="isRecurring"
               displayEmpty
               onChange={() => {
-                setIsRecurring(!isReccuring);
-                formik.setFieldValue("isRecurring", !isReccuring);
+                setIsRecurring(!isRecurring);
+                formik.setFieldValue("isRecurring", !isRecuring);
               }}
               value={formik.values.isRecurring}
               label="Recurring"
@@ -219,7 +219,7 @@ export const CreateBill = () => {
               <MenuItem value={"false"}>No</MenuItem>
             </Select>
           </InputSection>
-          {isReccuring === true && (
+          {isRecurring === true && (
             <InputSection>
               <label htmlFor="recurringFrequency">Recurring Frequency</label>
               <Select
@@ -317,18 +317,3 @@ const StyledError = styled.div`
 `;
 
 interface FormErrors {}
-
-/*
-
- userId: { type: ObjectId, required: true, ref: 'User' },
-  name: { type: String, required: true },
-  amount: { type: Number, required: true },
-  dueDate: { type: Date },
-  isPaid: { type: Boolean, required: true, default: false },
-  created: { type: Date, default: Date.now },
-  isRecurring: { type: Boolean, required: true, default: false },
-  category: { type: String },
-  createdAt: { type: Date, default: Date.now },
-  lastPaidAt: { type: Date },
-
-*/

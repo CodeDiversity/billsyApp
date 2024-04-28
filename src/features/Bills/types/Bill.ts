@@ -13,4 +13,5 @@ export interface Bill {
   isRecurring?: boolean;
   payments?: Payment[];
   recurringFrequency?: RecurringFrequency;
+  paid?: boolean;
 }

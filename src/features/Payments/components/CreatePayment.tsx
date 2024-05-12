@@ -1,4 +1,4 @@
-import { Dialog } from "@mui/material";
+import { Dialog, TextField } from "@mui/material";
 import { Bill } from "../../Bills/types/Bill";
 import { useFormik } from "formik";
 import styled from "@emotion/styled";
@@ -53,7 +53,7 @@ export const CreatePayment = ({ open, setOpen, bill }: CreatePaymentProps) => {
         <Form onSubmit={formik.handleSubmit}>
           <p>Enter optional details for {bill.name} payment</p>
           <label htmlFor="amount">Amount</label>
-          <Input
+          <TextField
             type="number"
             id="amount"
             name="amount"
@@ -72,7 +72,7 @@ export const CreatePayment = ({ open, setOpen, bill }: CreatePaymentProps) => {
             }}
           />
           <label htmlFor="confirmationNumber">Confirmation Number</label>
-          <Input
+          <TextField
             type="text"
             id="confirmationNumber"
             name="confirmationNumber"
@@ -80,14 +80,17 @@ export const CreatePayment = ({ open, setOpen, bill }: CreatePaymentProps) => {
             onChange={formik.handleChange}
           />
           <label htmlFor="note">Note</label>
-          <Input
+          <TextField
             type="text"
             id="note"
             name="note"
             value={formik.values.note}
             onChange={formik.handleChange}
           />
-          <SubmitButton type="submit">Create Payment</SubmitButton>
+          <CenterDiv>
+            <SubmitButton type="submit">Create Payment</SubmitButton>
+          </CenterDiv>
+    
         </Form>
       </Wrapper>
     </Dialog>
@@ -115,7 +118,7 @@ const Form = styled.form`
 const Header = styled.h2`
   text-align: center;
   font-size: 2.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: .25rem;
   margin-left: 2%;
 `;
 
@@ -137,10 +140,16 @@ const SubmitButton = styled.button`
   color: white;
   font-size: 1rem;
   cursor: pointer;
+  width: 200px;
   transition: background-color 0.2s;
   &:hover {
     background-color: #0056b3;
   }
 `;
 
+const CenterDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
 

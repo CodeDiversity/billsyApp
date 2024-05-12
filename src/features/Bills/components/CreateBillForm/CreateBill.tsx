@@ -249,7 +249,8 @@ export const CreateBill = () => {
 
 const Wrapper = styled.section`
   display: flex;
-  height: 100vh;
+  height: 100%;
+  overflow-y: auto;
   flex-direction: column;
   align-items: flex-start;
   @media (max-width: ${breakpoints.tablet}) {
@@ -272,9 +273,8 @@ const Form = styled.form`
 
 const Header = styled.h1`
   text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  margin-left: 2.5%;
+  font-size: 2rem;
+  margin-left: 28px;
   @media (max-width: ${breakpoints.tablet}) {
     margin-left: 0;
     margin-bottom: .5rem;

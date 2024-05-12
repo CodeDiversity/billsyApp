@@ -24,10 +24,15 @@ export const CreatePayment = ({ open, setOpen, bill }: CreatePaymentProps) => {
       amount: bill.amount,
       confirmationNumber: "",
       note: "",
-      date: date ,
+      date: date,
     }
   }, [bill])
   const dispatch = useAppDispatch();
+  
+  const handleCancel = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    setOpen(false);
+  }
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -89,13 +94,29 @@ export const CreatePayment = ({ open, setOpen, bill }: CreatePaymentProps) => {
           />
           <CenterDiv>
             <SubmitButton type="submit">Create Payment</SubmitButton>
+            <CancelButton onClick={handleCancel}>Cancel</CancelButton>
           </CenterDiv>
-    
         </Form>
       </Wrapper>
     </Dialog>
   );
 };
+
+const CancelButton = styled.button`
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: none;
+  background-color: #dc3545;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 200px;
+  transition: background-color 0.2s;
+  margin-left: 1rem;
+  &:hover {
+    background-color: #a71d2a;
+  }
+`;
 
 const Wrapper = styled.section`
   display: flex;

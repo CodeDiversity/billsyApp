@@ -202,7 +202,7 @@ export const EditBill = () => {
           {/* Pay Link Field Add */}
           <InputSection>
             <label htmlFor="payLink">Pay Link</label>
-            <Input
+            <TextField
               id="payLink"
               name="payLink"
               type="text"
@@ -261,9 +261,11 @@ export const EditBill = () => {
 
 const Wrapper = styled.section`
   display: flex;
-  height: 100vh;
+  height: 100%;
+  overflow-y: auto;
   flex-direction: column;
   align-items: flex-start;
+  margin-left: 10%;
   @media (max-width: ${breakpoints.tablet}) {
     align-items: center;
   
@@ -285,9 +287,8 @@ const Form = styled.form`
 
 const Header = styled.h1`
   text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  margin-left: 2%;
+  font-size: 2rem;
+  margin-left: 25px;
   @media (max-width: ${breakpoints.tablet}) {
     margin-left: 0;
   }

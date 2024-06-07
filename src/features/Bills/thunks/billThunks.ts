@@ -19,7 +19,7 @@ export const createBill = createAsyncThunk(
   'user/createBill',
   async (bill: any, { dispatch, rejectWithValue }) => {
     try {
-      const response = await client.post("bills", bill);
+      await client.post("bills", bill);
       dispatch(fetchBills());
     } catch (error) {
       return rejectWithValue("An unexpected error occurred. Please try again.");

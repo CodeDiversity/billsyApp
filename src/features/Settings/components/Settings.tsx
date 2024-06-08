@@ -113,8 +113,9 @@ const Form = styled.form`
 `;
 
 const Header = styled.h1`
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  margin-bottom: .5rem;
+  margin-top: 1rem;
   margin-left: 2%;
   @media (max-width: ${breakpoints.tablet}) {
     margin-left: 0;

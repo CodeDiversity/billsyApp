@@ -9,7 +9,7 @@ export const LeftNav = () => {
         <NavItem to="/">Overview</NavItem>
         <NavItem to="/bills">Bills</NavItem>
         <NavItem to="/settings">Settings</NavItem>
-        <NavItem to="/help">Help</NavItem>
+        {/* <NavItem to="/help">Help</NavItem> */}
       </UnorderedList>
     </NavList>
   );

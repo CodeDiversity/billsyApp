@@ -9,8 +9,10 @@ export const UpcomingBills = () => {
   const upcomingBills = bills.filter((b) => {
     return new Date(b.dueDate) > new Date();
   }).slice(0, 5);
+  console.log(upcomingBills)
   return (
     <>
+
       <StyledHeader>Upcoming Bills</StyledHeader>
       <div>
         {upcomingBills?.map((b) => {
@@ -33,6 +35,9 @@ export const UpcomingBills = () => {
             </StyledBill>
           );
         })}
+        {upcomingBills?.length === 0 && (
+          <StyledParagraph>No upcoming bills</StyledParagraph>
+        )}
       </div>
     </>
   );

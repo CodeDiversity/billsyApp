@@ -1,18 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../../store";
-
+import { Bill } from "../types/billTypes";
 
 const initialState = {
-  bills: [],
-  error: '',
+  bills: [] as Bill[],
+  error: "",
 };
-
 
 const billSlice = createSlice({
   name: "bill",
   initialState,
   reducers: {
-    setBills: (state, action: PayloadAction<[]>) => {
+    setBills: (state, action: PayloadAction<Bill[]>) => {
       state.bills = action.payload;
     },
     setError: (state, action: PayloadAction<string>) => {

@@ -13,7 +13,7 @@ import { createBill } from "../../thunks/billThunks";
 import { AppDispatch } from "../../../../store";
 import { Bill } from "../../types/Bill";
 import { toast } from "react-toastify";
-import { RecurringFrequency } from '../../types/RecurringFrequency';
+import { RecurringFrequency } from "../../types/RecurringFrequency";
 import { breakpoints } from "../../../../common/styled";
 
 interface FormValues {
@@ -40,7 +40,7 @@ export const CreateBill = () => {
     dueDate: "",
     payLink: "",
     isRecurring: "",
-    recurringFrequency: '',
+    recurringFrequency: "",
   });
   const validateForm = () => {
     let error = false;
@@ -51,7 +51,7 @@ export const CreateBill = () => {
       dueDate: "",
       payLink: "",
       isRecurring: "",
-      recurringFrequency: '',
+      recurringFrequency: "",
     };
     if (!formik.values.name) {
       errors.name = "Name is required";
@@ -77,7 +77,7 @@ export const CreateBill = () => {
         dueDate: "",
         payLink: "",
         isRecurring: "",
-        recurringFrequency: '',
+        recurringFrequency: "",
       });
       return true;
     } else {
@@ -151,7 +151,9 @@ export const CreateBill = () => {
             ) : null}
           </InputSection>
           <InputSection>
-            <label id="Category">Category</label>
+            <label id="Category" htmlFor="category">
+              Category
+            </label>
             <Select
               id="category"
               name="category"
@@ -255,7 +257,6 @@ const Wrapper = styled.section`
   @media (max-width: ${breakpoints.tablet}) {
     align-items: center;
   }
-
 `;
 
 const Form = styled.form`
@@ -277,7 +278,7 @@ const Header = styled.h1`
   margin-left: 2.5%;
   @media (max-width: ${breakpoints.tablet}) {
     margin-left: 0;
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
   }
 `;
 

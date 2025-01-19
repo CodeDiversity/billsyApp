@@ -31,7 +31,7 @@ export const CreateBill = () => {
   //TODO style date to match the rest or remove MUI date picker.
   const navigate = useNavigate();
   const [resError, setResError] = useState("");
-  const [isReccuring, setIsRecurring] = useState(false);
+  const [isRecurring, setIsRecurring] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const [formErrors, setFormErrors] = useState({
     name: "",
@@ -210,8 +210,8 @@ export const CreateBill = () => {
               name="isRecurring"
               displayEmpty
               onChange={() => {
-                setIsRecurring(!isReccuring);
-                formik.setFieldValue("isRecurring", !isReccuring);
+                setIsRecurring(!isRecurring);
+                formik.setFieldValue("isRecurring", !isRecurring);
               }}
               value={formik.values.isRecurring}
               label="Recurring"
@@ -221,7 +221,7 @@ export const CreateBill = () => {
               <MenuItem value={"false"}>No</MenuItem>
             </Select>
           </InputSection>
-          {isReccuring === true && (
+          {isRecurring === true && (
             <InputSection>
               <label htmlFor="recurringFrequency">Recurring Frequency</label>
               <Select

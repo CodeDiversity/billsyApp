@@ -1,4 +1,4 @@
-import { Dialog } from "@mui/material";
+import { Dialog, IconButton } from "@mui/material";
 import { Bill } from "../../Bills/types/Bill";
 import { useFormik } from "formik";
 import styled from "@emotion/styled";
@@ -9,6 +9,7 @@ import { Payment } from "../types";
 import { payBill } from "../../Bills/thunks/billThunks";
 import { useMemo } from "react";
 import { toast } from "react-toastify";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface CreatePaymentProps {
   open: boolean;
@@ -19,14 +20,14 @@ interface CreatePaymentProps {
 export const CreatePayment = ({ open, setOpen, bill }: CreatePaymentProps) => {
   // useform with amount, confirmationNumber and note
   const initialValues = useMemo(() => {
-    const date = new Date(bill.dueDate)
+    const date = new Date(bill.dueDate);
     return {
       amount: bill.amount,
       confirmationNumber: "",
       note: "",
-      date: date ,
-    }
-  }, [bill])
+      date: date,
+    };
+  }, [bill]);
   const dispatch = useAppDispatch();
 
   const formik = useFormik({
@@ -42,13 +43,16 @@ export const CreatePayment = ({ open, setOpen, bill }: CreatePaymentProps) => {
       dispatch(createPayment(payment));
       dispatch(payBill(bill._id!)).unwrap();
       setOpen(false);
-      toast.success("Bill Paid");
+      toast.success("Bill Paid"); 
     },
     enableReinitialize: true,
   });
   return (
     <Dialog open={open} maxWidth="md" fullWidth={true}>
       <Wrapper>
+        <CloseButton onClick={() => setOpen(false)}>
+          <CloseIcon />
+        </CloseButton>
         <Header>Add Payment Details</Header>
         <Form onSubmit={formik.handleSubmit}>
           <p>Enter optional details for {bill.name} payment</p>
@@ -59,6 +63,7 @@ export const CreatePayment = ({ open, setOpen, bill }: CreatePaymentProps) => {
             name="amount"
             value={formik.values.amount}
             onChange={formik.handleChange}
+            aria-label="Amount"
           />
           <label htmlFor="date">Date Paid</label>
           <DatePicker
@@ -78,6 +83,7 @@ export const CreatePayment = ({ open, setOpen, bill }: CreatePaymentProps) => {
             name="confirmationNumber"
             value={formik.values.confirmationNumber}
             onChange={formik.handleChange}
+            aria-label="Confirmation Number"
           />
           <label htmlFor="note">Note</label>
           <Input
@@ -86,6 +92,7 @@ export const CreatePayment = ({ open, setOpen, bill }: CreatePaymentProps) => {
             name="note"
             value={formik.values.note}
             onChange={formik.handleChange}
+            aria-label="Note"
           />
           <SubmitButton type="submit">Create Payment</SubmitButton>
         </Form>
@@ -119,7 +126,6 @@ const Header = styled.h2`
   margin-left: 2%;
 `;
 
-
 const Input = styled.input`
   padding: 16px;
   border-radius: 0.5rem;
@@ -143,4 +149,14 @@ const SubmitButton = styled.button`
   }
 `;
 
+const CloseButton = styled(IconButton)`
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  color: #666;
+  aria-label: "close";
 
+  &:hover {
+    color: #333;
+  }
+`;

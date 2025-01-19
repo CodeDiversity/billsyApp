@@ -11,7 +11,7 @@ export const createPayment = createAsyncThunk(
       dispatch(fetchBills());
       return response.data;
     } catch (error) {
-      // return rejectWithValue(error.response.data);
+      console.log(error);
     }
   }
 );

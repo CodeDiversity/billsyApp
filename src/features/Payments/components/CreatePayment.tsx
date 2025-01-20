@@ -32,18 +32,24 @@ export const CreatePayment = ({ open, setOpen, bill }: CreatePaymentProps) => {
 
   const formik = useFormik({
     initialValues: initialValues,
-    onSubmit: (values: any) => {
-      const payment: Payment = {
-        amount: values.amount,
-        confirmationNumber: values.confirmationNumber,
-        note: values.note,
-        bill: bill._id,
-        date: values.dueDate || new Date(),
-      };
-      dispatch(createPayment(payment));
-      dispatch(payBill(bill._id!)).unwrap();
-      setOpen(false);
-      toast.success("Bill Paid"); 
+    onSubmit: async (values: any) => {
+      try {
+        const payment: Payment = {
+          amount: values.amount,
+          confirmationNumber: values.confirmationNumber,
+          note: values.note,
+          bill: bill._id,
+          date: values.dueDate || new Date(),
+        };
+        console.log("Dispatching createPayment:", createPayment(payment));
+        console.log("Dispatching payBill:", payBill(bill._id!));
+        await dispatch(createPayment(payment)).unwrap();
+        await dispatch(payBill(bill._id!)).unwrap();
+        setOpen(false);
+        toast.success("Bill Paid");
+      } catch (error) {
+        toast.error("Failed to create payment");
+      }
     },
     enableReinitialize: true,
   });

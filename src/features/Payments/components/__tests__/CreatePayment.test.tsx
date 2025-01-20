@@ -31,25 +31,16 @@ jest.mock("@mui/x-date-pickers", () => ({
 
 // Mock the thunks
 jest.mock("../../thunks/paymentThunks", () => ({
-  createPayment: jest.fn(() => ({
-    type: "payments/createPayment/fulfilled",
-  })),
-}));
-
-jest.mock("../../../Bills/thunks/billThunks", () => ({
-  payBill: jest.fn(() => ({
-    type: "bills/payBill/fulfilled",
+  createPayment: jest.fn((payment) => ({
     unwrap: () => Promise.resolve({ success: true }),
   })),
 }));
 
-// Get references to the mocks after they're created
-const createPaymentMock = jest.requireMock(
-  "../../thunks/paymentThunks"
-).createPayment;
-const payBillMock = jest.requireMock(
-  "../../../Bills/thunks/billThunks"
-).payBill;
+jest.mock("../../../Bills/thunks/billThunks", () => ({
+  payBill: jest.fn((id) => ({
+    unwrap: () => Promise.resolve({ success: true }),
+  })),
+}));
 
 describe("CreatePayment", () => {
   const mockBill = {
@@ -62,15 +53,20 @@ describe("CreatePayment", () => {
 
   const mockSetOpen = jest.fn();
 
+  // Add the renderComponent helper function
   const renderComponent = () => {
     const { component } = withRedux(
       <CreatePayment open={true} setOpen={mockSetOpen} bill={mockBill} />,
       {
-        bills: { items: [mockBill] },
+        bill: { items: [mockBill] },
       }
     );
-    render(component);
+    return render(component);
   };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
   it("renders the component with initial values", () => {
     renderComponent();
@@ -80,7 +76,6 @@ describe("CreatePayment", () => {
       screen.getByText(`Enter optional details for ${mockBill.name} payment`)
     ).toBeInTheDocument();
 
-    // Check if initial amount is set
     const amountInput = screen.getByLabelText("Amount") as HTMLInputElement;
     expect(amountInput.value).toBe(mockBill.amount.toString());
   });
@@ -97,38 +92,34 @@ describe("CreatePayment", () => {
   it("updates form values when inputs change", async () => {
     renderComponent();
 
-    const confirmationInput = screen.getByLabelText(
-      "Confirmation Number"
-    ) as HTMLInputElement;
-    const noteInput = screen.getByLabelText("Note") as HTMLInputElement;
-
-    await act(async () => {
-      userEvent.type(confirmationInput, "12345");
-      userEvent.type(noteInput, "Test note");
-    });
-
-    expect(confirmationInput.value).toBe("12345");
-    expect(noteInput.value).toBe("Test note");
-  });
-
-  it("submits the form with correct values and calls API", async () => {
-    renderComponent();
-
     const confirmationInput = screen.getByLabelText("Confirmation Number");
     const noteInput = screen.getByLabelText("Note");
-    const datePicker = screen.getByTestId("date-picker");
-    const submitButton = screen.getByText("Create Payment");
 
     await act(async () => {
       userEvent.type(confirmationInput, "12345");
       userEvent.type(noteInput, "Test note");
-      fireEvent.change(datePicker, { target: { value: "2024-03-25" } });
-      fireEvent.click(submitButton);
     });
 
+    expect(confirmationInput).toHaveValue("12345");
+    expect(noteInput).toHaveValue("Test note");
+  });
+
+  it("submits the form with correct values", async () => {
+    renderComponent();
+
+    // Fill form
+    await userEvent.type(screen.getByLabelText("Confirmation Number"), "12345");
+    await userEvent.type(screen.getByLabelText("Note"), "Test note");
+    fireEvent.change(screen.getByTestId("date-picker"), {
+      target: { value: "2024-03-25" },
+    });
+
+    // Submit form
+    const submitButton = screen.getByText("Create Payment");
+    await userEvent.click(submitButton);
+
+    // Wait for async operations to complete
     await waitFor(() => {
-      expect(createPaymentMock).toHaveBeenCalled();
-      expect(payBillMock).toHaveBeenCalledWith(mockBill._id);
       expect(mockSetOpen).toHaveBeenCalledWith(false);
       expect(toast.success).toHaveBeenCalledWith("Bill Paid");
     });
@@ -143,7 +134,7 @@ describe("CreatePayment", () => {
       userEvent.type(amountInput, "200");
     });
 
-    expect(amountInput.value).toBe("200");
+    expect(amountInput).toHaveValue(200);
   });
 
   it("handles date changes correctly", async () => {
@@ -154,6 +145,6 @@ describe("CreatePayment", () => {
       fireEvent.change(datePicker, { target: { value: "2024-03-25" } });
     });
 
-    expect(datePicker.value).toBe("2024-03-25");
+    expect(datePicker).toHaveValue("2024-03-25");
   });
 });

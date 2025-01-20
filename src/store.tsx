@@ -11,7 +11,7 @@ export const store = configureStore({
 });
 
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   user: userReducer,
   bill: billReducer,
 });

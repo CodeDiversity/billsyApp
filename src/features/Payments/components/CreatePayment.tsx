@@ -41,8 +41,6 @@ export const CreatePayment = ({ open, setOpen, bill }: CreatePaymentProps) => {
           bill: bill._id,
           date: values.dueDate || new Date(),
         };
-        console.log("Dispatching createPayment:", createPayment(payment));
-        console.log("Dispatching payBill:", payBill(bill._id!));
         await dispatch(createPayment(payment)).unwrap();
         await dispatch(payBill(bill._id!)).unwrap();
         setOpen(false);

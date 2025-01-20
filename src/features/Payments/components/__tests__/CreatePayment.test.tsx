@@ -53,12 +53,12 @@ describe("CreatePayment", () => {
 
   const mockSetOpen = jest.fn();
 
-  // Add the renderComponent helper function
-  const renderComponent = () => {
+  const renderComponent = (mockDispatch = false) => {
     const { component } = withRedux(
       <CreatePayment open={true} setOpen={mockSetOpen} bill={mockBill} />,
       {
-        bill: { items: [mockBill] },
+        preloadedState: { bill: { items: [mockBill] } },
+        mockDispatch,
       }
     );
     return render(component);
@@ -105,20 +105,16 @@ describe("CreatePayment", () => {
   });
 
   it("submits the form with correct values", async () => {
-    renderComponent();
+    renderComponent(true);
 
-    // Fill form
     await userEvent.type(screen.getByLabelText("Confirmation Number"), "12345");
     await userEvent.type(screen.getByLabelText("Note"), "Test note");
     fireEvent.change(screen.getByTestId("date-picker"), {
       target: { value: "2024-03-25" },
     });
 
-    // Submit form
-    const submitButton = screen.getByText("Create Payment");
-    await userEvent.click(submitButton);
+    await userEvent.click(screen.getByText("Create Payment"));
 
-    // Wait for async operations to complete
     await waitFor(() => {
       expect(mockSetOpen).toHaveBeenCalledWith(false);
       expect(toast.success).toHaveBeenCalledWith("Bill Paid");

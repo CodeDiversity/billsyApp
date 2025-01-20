@@ -3,7 +3,15 @@ import { Provider } from "react-redux";
 import { ReactElement } from "react";
 import { rootReducer } from "../../../../store";
 
-export const setupTestStore = (preloadedState = {}) => {
+interface TestStoreOptions {
+  preloadedState?: any;
+  mockDispatch?: boolean;
+}
+
+export const setupTestStore = ({
+  preloadedState = {},
+  mockDispatch = false,
+}: TestStoreOptions = {}) => {
   const store = configureStore({
     reducer: rootReducer,
     preloadedState,
@@ -13,16 +21,20 @@ export const setupTestStore = (preloadedState = {}) => {
       }),
   });
 
-  // Mock the dispatch function
-  store.dispatch = jest.fn().mockImplementation(() => ({
-    unwrap: () => Promise.resolve({ success: true }),
-  }));
+  if (mockDispatch) {
+    store.dispatch = jest.fn().mockImplementation(() => ({
+      unwrap: () => Promise.resolve({ success: true }),
+    }));
+  }
 
   return store;
 };
 
-export const withRedux = (component: ReactElement, preloadedState = {}) => {
-  const store = setupTestStore(preloadedState);
+export const withRedux = (
+  component: ReactElement,
+  options: TestStoreOptions = {}
+) => {
+  const store = setupTestStore(options);
   return {
     store,
     component: <Provider store={store}>{component}</Provider>,
